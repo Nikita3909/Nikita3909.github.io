@@ -48,7 +48,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
               Featured Systems & Deployed Dashboards
             </h2>
             <p className="mt-2 text-slate-400 text-sm max-w-xl text-balance">
-              10 flagship systems engineered from raw databases into deployed executive dashboards, forecasting models, and automated business workflows.
+              12 key systems — from live management dashboards and forecasting to an AI procurement agent and a full CRM.
             </p>
           </div>
 
