@@ -379,7 +379,7 @@ export const PORTFOLIO_DATA = {
       department: "Operations",
       category: "Operations",
       problem: "Daily tasks across departments had no clear tracking of deadlines and completion.",
-      whatBuilt: "An Admin Task Tracker (entry form + dashboard), the BioPapro FMS daily task tracker with per-employee reports, and a React FMS tracker showing overdue, today's and upcoming tasks.",
+      whatBuilt: "An Admin Task Tracker (entry form + dashboard), a daily task FMS tracker with per-employee reports, and a React FMS tracker showing overdue, today's and upcoming tasks.",
       result: "Managers can see what is pending and who is behind.",
       tech: ["Google Apps Script", "React", "Node.js", "MongoDB"],
       image: "/images/admin-tracker.png",
