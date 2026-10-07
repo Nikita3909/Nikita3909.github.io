@@ -142,6 +142,39 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
+      id: "procurement-ai-agent",
+      title: "Procurement AI Agent",
+      department: "AI & Data Science",
+      category: "Data Science",
+      problem: "Procurement data — stock, targets, transit, import POs, payments and landed cost — was spread across many sheets, and answering simple questions took manual digging.",
+      whatBuilt: "A full-stack procurement platform with an AI agent. Dashboards cover monthly planning, import purchase management, payments, landed cost, vendor comparison, inward QC and final inspection. A LangGraph agent answers questions using tools, local RAG search and a procurement knowledge graph.",
+      result: "The team can plan purchases, track imports and payments, and ask the agent questions in plain English instead of searching sheets.",
+      tech: ["React", "TypeScript", "Node.js", "LangGraph", "RAG", "Recharts", "Google Sheets API", "Vitest"],
+      image: "/images/procurement-agent.png",
+      chartType: "capacity",
+      highlights: [
+        "LangGraph agent (agent → tools → agent loop) with data-health checks and pending-order / vendor-rate tools",
+        "Local RAG with ONNX embeddings (no paid embedding API) and semantic search",
+        "Procurement knowledge graph built only from real rows — path, root-cause and impact queries",
+        "Landed cost, supplier performance, SKU cost automation and PO creation with PDF output"
+      ],
+      metrics: [
+        { label: "Modules", value: "8+", trend: "Planning to inspection" },
+        { label: "AI stack", value: "LangGraph", trend: "Tools + RAG + graph" },
+        { label: "Test suites", value: "8", trend: "Vitest" }
+      ],
+      deliverables: [
+        "React + TypeScript dashboard",
+        "Express API with Google Sheets integration",
+        "AI agent with RAG and knowledge graph"
+      ],
+      liveFeatures: [
+        "Month-wise plan vs stock vs transit",
+        "Import PO, payment and landed cost views",
+        "Chat agent and command palette"
+      ]
+    },
+    {
       id: "ceo-command-center",
       title: "CEO Command Center",
       department: "Management",
@@ -305,6 +338,39 @@ export const PORTFOLIO_DATA = {
         "Order list with current stage",
         "Planned vs actual dates per stage",
         "Pending / overdue views"
+      ]
+    },
+    {
+      id: "full-stack-crm",
+      title: "Full-Stack Sales CRM",
+      department: "Sales",
+      category: "Sales",
+      problem: "Orders, dispatch, follow-ups, grievances and leads were handled in separate sheets and forms with no role-based access.",
+      whatBuilt: "A full CRM with Google login and roles (admin, CRM, dispatch): dashboard, order entry with auto order IDs and stock checks, dispatch with photo upload, SCOT tracker, reorder risk prediction, pipeline, grievances, WhatsApp, reports and an AI assistant with lead generation.",
+      result: "Sales, CRM and dispatch teams work from one system, each seeing only what their role needs.",
+      tech: ["React", "Vite", "Node.js", "Express", "Google Sheets API", "Google OAuth", "OpenAI / OpenRouter", "node-cron"],
+      image: "/images/full-crm.png",
+      chartType: "crm",
+      highlights: [
+        "Role-based access with Google OAuth login",
+        "New order form that auto-generates order IDs and triggers the stock engine",
+        "Reorder risk tracker predicting which customers are due to reorder (High / Medium / Low / New)",
+        "Below-benchmark price and delayed-order views with PDF and Excel export"
+      ],
+      metrics: [
+        { label: "Pages", value: "24", trend: "React app" },
+        { label: "User roles", value: "3", trend: "Admin · CRM · Dispatch" },
+        { label: "AI", value: "Assistant", trend: "Plus lead generator" }
+      ],
+      deliverables: [
+        "React + Vite frontend",
+        "Express backend with scheduled jobs",
+        "Google Sheets data layer"
+      ],
+      liveFeatures: [
+        "Order, dispatch and payment tracking",
+        "SCOT and reorder trackers",
+        "AI assistant and lead generator"
       ]
     },
     {
