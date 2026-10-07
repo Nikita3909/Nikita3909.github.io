@@ -460,7 +460,7 @@ export const PORTFOLIO_DATA = {
       ],
       metrics: [
         { label: "Task views", value: "3", trend: "Overdue · Today · Upcoming" },
-        { label: "Trackers", value: "3", trend: "Admin, FMS, BCPL FMS" },
+        { label: "Trackers", value: "3", trend: "Admin, daily FMS, React FMS" },
         { label: "Reports", value: "Per employee", trend: "FMS tracker" }
       ],
       deliverables: [
@@ -559,7 +559,7 @@ export const PORTFOLIO_DATA = {
       impact: "Day-by-day stock history."
     },
     {
-      id: "bcpl-sales-dashboard",
+      id: "sales-dashboard-scoring",
       title: "Sales Dashboard with Customer Scoring",
       group: "Sales & Finance",
       description: "Sales dashboard on raw sales data with a customer MIS score page.",
@@ -687,8 +687,8 @@ export const PORTFOLIO_DATA = {
       impact: "Sync keeps running even when web apps sleep."
     },
     {
-      id: "bcpl-fms-tracker",
-      title: "BCPL FMS Tracker",
+      id: "react-fms-tracker",
+      title: "React FMS Tracker",
       group: "Operations",
       description: "React app showing FMS tasks (sample request, purchase) by member with deadlines.",
       tech: ["React", "Vite", "Node.js"],
