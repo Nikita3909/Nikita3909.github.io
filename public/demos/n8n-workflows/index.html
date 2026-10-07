@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n8n AI Workflows — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1020; --panel: #121933; --panel-2: #182143; --line: #26305a; --text: #e6e9f5; --muted: #98a2c3;
+    --accent: #22d3ee;
+    --c-trigger: #f59e0b; --c-ai: #a855f7; --c-google: #22c55e; --c-social: #3b82f6; --c-logic: #94a3b8; --c-code: #f472b6; --c-http: #14b8a6; --c-other: #64748b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--text); font: 14px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; display: flex; flex-direction: column; }
+  header { padding: 14px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  header h1 { font-size: 17px; margin: 0; font-weight: 800; }
+  header h1 span { color: var(--accent); }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tab { background: var(--panel); border: 1px solid var(--line); color: var(--muted); padding: 7px 12px; border-radius: 9px; cursor: pointer; font: 600 13px Inter, sans-serif; }
+  .tab.on { background: var(--accent); color: #062029; border-color: var(--accent); }
+  .wrap { flex: 1; display: grid; grid-template-columns: 340px 1fr; min-height: 0; }
+  aside { border-right: 1px solid var(--line); padding: 18px; overflow: auto; }
+  aside h2 { font-size: 18px; margin: 0 0 6px; }
+  aside p { color: var(--muted); margin: 0 0 14px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+  .stat b { display: block; font-size: 20px; color: var(--accent); }
+  .stat small { color: var(--muted); font-size: 11.5px; }
+  h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 18px 0 8px; }
+  ul.steps { margin: 0; padding-left: 18px; }
+  ul.steps li { margin-bottom: 6px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lg { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; background: var(--panel); border: 1px solid var(--line); padding: 3px 8px; border-radius: 999px; }
+  .lg i { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
+  .sel { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 52px; }
+  .sel small { color: var(--muted); }
+  .canvas { position: relative; overflow: hidden; background-image: radial-gradient(#1c2650 1px, transparent 1px); background-size: 22px 22px; cursor: grab; }
+  .canvas.drag { cursor: grabbing; }
+  svg { width: 100%; height: 100%; display: block; user-select: none; }
+  .node rect { rx: 10; stroke-width: 1.5; }
+  .node text { fill: var(--text); font: 600 11.5px Inter, sans-serif; pointer-events: none; }
+  .node .t { fill: var(--muted); font: 500 9.5px Inter, sans-serif; }
+  .node { cursor: pointer; }
+  .node.hi rect { stroke: #fff; stroke-width: 2.5; }
+  .edge { fill: none; stroke: #3a4780; stroke-width: 1.6; }
+  .edge.ai { stroke-dasharray: 4 4; stroke: #6b4fa8; }
+  .edge.hi { stroke: var(--accent); stroke-width: 2.4; }
+  .zoom { position: absolute; right: 14px; top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .zoom button { width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font-size: 16px; cursor: pointer; }
+  .hint { position: absolute; left: 14px; top: 12px; color: var(--muted); font-size: 12px; background: rgba(11,16,32,.8); padding: 4px 8px; border-radius: 8px; }
+  #demo-banner { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 99; background: #0f172a; color: #e2e8f0; font: 600 12px/1.4 system-ui, sans-serif; padding: 8px 14px; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.35); display: flex; gap: 10px; align-items: center; max-width: calc(100vw - 32px); border: 1px solid #1e293b; }
+  #demo-banner span.b { background: #22d3ee; color: #0f172a; border-radius: 999px; padding: 2px 8px; font-size: 11px; }
+  #demo-banner a { color: #67e8f9; text-decoration: none; white-space: nowrap; }
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: 1fr; grid-template-rows: auto 60vh; }
+    aside { border-right: 0; border-bottom: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>n8n <span>AI Workflows</span></h1>
+  <div class="tabs" id="tabs"></div>
+</header>
+<div class="wrap">
+  <aside id="info"></aside>
+  <div class="canvas" id="canvas">
+    <div class="hint">Drag to move · scroll or +/− to zoom · click a node</div>
+    <svg id="svg"><g id="vp"></g></svg>
+    <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zfit" aria-label="Fit">⤢</button></div>
+  </div>
+</div>
+<div id="demo-banner"><span class="b">DEMO</span><span>Real workflow structure · settings &amp; credentials removed</span><a href="/">← Portfolio</a></div>
+
+<script src="workflows-data.js"></script>
+<script>
+const INFO = {
+  marketing: {
+    blurb: 'An end-to-end AI social media team built in n8n: it plans the week, writes posts, designs images and videos, checks them, publishes, and reports back.',
+    steps: [
+      'Every Monday an AI strategist reads the brand guide, festival calendar and settings, and plans the week\'s posts — then an AI reviewer checks the plan.',
+      'Every weekday an AI copywriter writes each post; images are generated, checked by an AI "art director" and stamped with the logo. Video posts use Google Veo.',
+      'A web dashboard (served by n8n webhooks) lets the owner approve, edit, regenerate, skip or upload their own image.',
+      'Approved posts are published to LinkedIn, Instagram and Facebook, and sent as WhatsApp campaign templates.',
+      'Nightly jobs pull reach and follower stats, track AI cost against a budget, and email alerts and a weekly report.',
+    ],
+  },
+  whatsapp: {
+    blurb: 'A WhatsApp sales assistant that replies to customers 24/7, understands text, voice notes and images, qualifies leads and books meetings.',
+    steps: [
+      'Every incoming WhatsApp message triggers the flow; voice notes are transcribed and images are analysed by AI.',
+      'It checks whether a human has taken over the chat (bot on/off control) before replying.',
+      'Known customers go to a customer-service AI agent; new contacts go to a lead-qualification AI agent with chat memory.',
+      'The agent updates the CRM sheet and can create a calendar meeting with the sales team.',
+      'Every customer message and AI reply is logged to Google Sheets for the CRM inbox.',
+    ],
+  },
+};
+const CATS = [
+  ['trigger', 'Trigger', t => /trigger|schedule|webhook|cron/i.test(t)],
+  ['ai', 'AI / LLM', t => /^ai:|openai|gemini|lmchat|agent|memory|outputparser/i.test(t)],
+  ['google', 'Google', t => /google|gmail|sheets|drive|calendar/i.test(t)],
+  ['social', 'Social / WhatsApp', t => /whatsapp|facebook|linkedin|instagram/i.test(t)],
+  ['code', 'Code', t => /^code$|function/i.test(t)],
+  ['http', 'HTTP / API', t => /http|respondtowebhook|editimage/i.test(t)],
+  ['logic', 'Logic', t => /^(if|switch|merge|set|wait|splitinbatches|noop|filter)$/i.test(t)],
+];
+const cat = t => (CATS.find(c => c[2](t)) || ['other'])[0];
+const color = c => getComputedStyle(document.documentElement).getPropertyValue('--c-' + c).trim();
+const W = 170, H = 46;
+const svg = document.getElementById('svg'), vp = document.getElementById('vp'), canvas = document.getElementById('canvas');
+let view = { x: 0, y: 0, k: 1 }, current = 'marketing';
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function apply() { vp.setAttribute('transform', `translate(${view.x},${view.y}) scale(${view.k})`); }
+
+function render(key) {
+  current = key;
+  const wf = WORKFLOWS[key], info = INFO[key];
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.k === key));
+  const counts = {}; wf.nodes.forEach(n => { const c = cat(n.type); counts[c] = (counts[c] || 0) + 1; });
+  document.getElementById('info').innerHTML = `
+    <h2>${esc(wf.title)}</h2><p>${esc(info.blurb)}</p>
+    <div class="stats"><div class="stat"><b>${wf.nodes.length}</b><small>nodes</small></div><div class="stat"><b>${wf.edges.length}</b><small>connections</small></div><div class="stat"><b>${counts.ai || 0}</b><small>AI nodes</small></div></div>
+    <h3>What it does</h3><ul class="steps">${info.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ul>
+    <h3>Node types</h3><div class="legend">${CATS.map(([c, label]) => counts[c] ? `<span class="lg"><i style="background:${color(c)}"></i>${label} · ${counts[c]}</span>` : '').join('')}</div>
+    <h3>Selected node</h3><div class="sel" id="sel"><small>Click a node in the diagram.</small></div>`;
+  const byName = Object.fromEntries(wf.nodes.map(n => [n.name, n]));
+  let html = '';
+  for (const e of wf.edges) {
+    const a = byName[e.from], b = byName[e.to]; if (!a || !b) continue;
+    const ai = e.kind !== 'main';
+    const x1 = a.x + W, y1 = a.y + H / 2, x2 = b.x, y2 = b.y + H / 2;
+    const dx = Math.max(40, Math.abs(x2 - x1) / 2);
+    html += `<path class="edge${ai ? ' ai' : ''}" data-f="${esc(e.from)}" data-t="${esc(e.to)}" d="M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}"/>`;
+  }
+  for (const n of wf.nodes) {
+    const c = color(cat(n.type));
+    const label = n.name.length > 24 ? n.name.slice(0, 23) + '…' : n.name;
+    html += `<g class="node" data-n="${esc(n.name)}" transform="translate(${n.x},${n.y})"><rect width="${W}" height="${H}" fill="#121933" stroke="${c}"/><rect width="6" height="${H}" fill="${c}" rx="3"/><text x="14" y="20">${esc(label)}</text><text class="t" x="14" y="35">${esc(n.type)}</text></g>`;
+  }
+  vp.innerHTML = html;
+  vp.querySelectorAll('.node').forEach(g => g.addEventListener('click', ev => { ev.stopPropagation(); select(g.dataset.n); }));
+  fit();
+}
+
+function select(name) {
+  const wf = WORKFLOWS[current], n = wf.nodes.find(x => x.name === name);
+  vp.querySelectorAll('.node').forEach(g => g.classList.toggle('hi', g.dataset.n === name));
+  vp.querySelectorAll('.edge').forEach(p => p.classList.toggle('hi', p.dataset.f === name || p.dataset.t === name));
+  const ins = wf.edges.filter(e => e.to === name).map(e => e.from), outs = wf.edges.filter(e => e.from === name).map(e => e.to);
+  document.getElementById('sel').innerHTML = `<b>${esc(n.name)}</b><br><small>${esc(n.type)}</small><br><small>From: ${esc(ins.join(', ') || '—')}</small><br><small>To: ${esc(outs.join(', ') || '—')}</small>`;
+}
+
+function fit() {
+  const wf = WORKFLOWS[current];
+  const xs = wf.nodes.map(n => n.x), ys = wf.nodes.map(n => n.y);
+  const minX = Math.min(...xs), maxX = Math.max(...xs) + W, minY = Math.min(...ys), maxY = Math.max(...ys) + H;
+  const r = canvas.getBoundingClientRect();
+  view.k = Math.min(r.width / (maxX - minX + 80), r.height / (maxY - minY + 80), 1.2);
+  view.x = (r.width - (maxX - minX) * view.k) / 2 - minX * view.k;
+  view.y = (r.height - (maxY - minY) * view.k) / 2 - minY * view.k;
+  apply();
+}
+function zoomAt(f, cx, cy) {
+  const k = Math.min(3, Math.max(0.05, view.k * f));
+  view.x = cx - (cx - view.x) * (k / view.k); view.y = cy - (cy - view.y) * (k / view.k); view.k = k; apply();
+}
+canvas.addEventListener('wheel', e => { e.preventDefault(); const r = canvas.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.12 : 1 / 1.12, e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+let drag = null;
+canvas.addEventListener('pointerdown', e => { if (e.target.closest('.node,.zoom')) return; drag = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y }; canvas.classList.add('drag'); canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', e => { if (!drag) return; view.x = drag.vx + e.clientX - drag.x; view.y = drag.vy + e.clientY - drag.y; apply(); });
+canvas.addEventListener('pointerup', () => { drag = null; canvas.classList.remove('drag'); });
+const mid = () => { const r = canvas.getBoundingClientRect(); return [r.width / 2, r.height / 2]; };
+document.getElementById('zin').onclick = () => zoomAt(1.25, ...mid());
+document.getElementById('zout').onclick = () => zoomAt(0.8, ...mid());
+document.getElementById('zfit').onclick = fit;
+window.addEventListener('resize', fit);
+
+document.getElementById('tabs').innerHTML = Object.entries(WORKFLOWS).map(([k, w]) => `<button class="tab" data-k="${k}">${esc(w.title)}</button>`).join('');
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => render(t.dataset.k));
+render(location.hash === '#whatsapp' ? 'whatsapp' : 'marketing');
+</script>
+</body>
+</html>

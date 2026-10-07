@@ -48,7 +48,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
               Featured Systems & Deployed Dashboards
             </h2>
             <p className="mt-2 text-slate-400 text-sm max-w-xl text-balance">
-              12 key systems — from live management dashboards and forecasting to an AI procurement agent and a full CRM.
+              15 key systems — from live dashboards and forecasting to AI agents, n8n automations and a full CRM.
             </p>
           </div>
 

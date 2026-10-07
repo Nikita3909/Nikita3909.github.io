@@ -176,6 +176,108 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
+      id: "ai-marketing-automation",
+      title: "AI Marketing Automation (n8n)",
+      department: "AI Automation",
+      category: "Data Science",
+      problem: "Planning, writing, designing and posting social media content every day took a lot of manual time, and results were not tracked.",
+      whatBuilt: "A 163-node n8n workflow that works like an AI marketing team: an AI strategist plans the week, an AI copywriter writes posts, images are generated and checked by an AI art director, videos are made with Google Veo, and approved posts are published to LinkedIn, Instagram, Facebook and WhatsApp — with a web dashboard for approvals.",
+      result: "Content goes from plan to published with one approval click, and performance, AI cost and errors are reported automatically.",
+      tech: ["n8n", "OpenAI", "Google Gemini / Veo", "Google Sheets & Drive", "Meta Graph API", "LinkedIn API", "WhatsApp Cloud API"],
+      image: "/images/marketing-automation.png",
+      demoUrl: "/demos/n8n-workflows/",
+      chartType: "sales",
+      highlights: [
+        "Multi-agent setup: strategist, reviewer, copywriter and art-director checks",
+        "Approval dashboard served from n8n webhooks (approve, edit, regenerate, skip, upload own image)",
+        "Auto-publishing to LinkedIn, Instagram, Facebook and WhatsApp campaign templates",
+        "Nightly performance tracking, AI budget alerts, error emails and a weekly report"
+      ],
+      metrics: [
+        { label: "Workflow nodes", value: "163", trend: "n8n" },
+        { label: "Channels", value: "4", trend: "LinkedIn · IG · FB · WhatsApp" },
+        { label: "AI agents", value: "3", trend: "Plan · review · write" }
+      ],
+      deliverables: [
+        "n8n workflow with 6 scheduled and webhook entry points",
+        "Approval dashboard",
+        "Google Sheets content calendar and usage log"
+      ],
+      liveFeatures: [
+        "Interactive workflow diagram",
+        "Node types and connections",
+        "Step-by-step explanation"
+      ]
+    },
+    {
+      id: "whatsapp-lead-agent",
+      title: "WhatsApp AI Lead Qualification Agent (n8n)",
+      department: "AI Automation",
+      category: "Sales",
+      problem: "WhatsApp enquiries came in at all hours and new leads were not answered or qualified quickly.",
+      whatBuilt: "A 42-node n8n AI agent on WhatsApp that understands text, voice notes (transcription) and images, separates existing customers from new leads, qualifies leads with chat memory, updates the CRM sheet and books calendar meetings — with a human takeover switch.",
+      result: "Every enquiry gets an instant reply, leads are qualified and logged, and the sales team can take over any chat.",
+      tech: ["n8n", "OpenAI", "OpenRouter", "WhatsApp Cloud API", "Google Sheets", "Google Calendar"],
+      image: "/images/whatsapp-agent.png",
+      demoUrl: "/demos/n8n-workflows/#whatsapp",
+      chartType: "crm",
+      highlights: [
+        "Handles text, voice notes (speech-to-text) and images",
+        "Customer vs lead routing to two different AI agents",
+        "AI tools: update CRM row and create a calendar meeting",
+        "Bot on/off control so a human can take over the chat"
+      ],
+      metrics: [
+        { label: "Workflow nodes", value: "42", trend: "n8n" },
+        { label: "Input types", value: "3", trend: "Text · voice · image" },
+        { label: "AI agents", value: "2", trend: "Leads · customers" }
+      ],
+      deliverables: [
+        "n8n WhatsApp agent workflow",
+        "CRM and chat log sheets",
+        "Feeds the CRM WhatsApp inbox"
+      ],
+      liveFeatures: [
+        "Interactive workflow diagram",
+        "Node types and connections",
+        "Step-by-step explanation"
+      ]
+    },
+    {
+      id: "pack-design-studio",
+      title: "Packaging Design Studio (3D)",
+      department: "Design / Production",
+      category: "Production",
+      problem: "Every packaging box, wrapper and export carton needed manual design work and separate calculations for printing and loading.",
+      whatBuilt: "A browser-based design tool: pick a product, size the box, change text and colours, see a live 3D mockup with fold animation, and download print-ready PDF, SVG, DXF die-lines and images. Includes a wrapping-paper designer and an export container planner with 3D loading view.",
+      result: "Packaging designs, printer files and loading plans are produced in minutes without a designer.",
+      tech: ["JavaScript", "Three.js", "jsPDF", "JSZip", "SVG / DXF", "HTML/CSS"],
+      image: "/images/pack-studio.png",
+      demoUrl: "/demos/pack-studio/",
+      chartType: "capacity",
+      highlights: [
+        "Live 3D box mockup with fold and open-lid animation",
+        "Print file at actual size (PDF), artwork + cut lines (SVG), die-maker files (DXF)",
+        "Costing facts: flat sheet size, board grams per box, boxes per printing sheet",
+        "Export planner: how many cartons fit in a container, shown in 3D"
+      ],
+      metrics: [
+        { label: "Tools", value: "3", trend: "Box · wrapper · container" },
+        { label: "Export formats", value: "6", trend: "PNG · PDF · SVG · DXF · ZIP · JSON" },
+        { label: "Server", value: "None", trend: "Runs in the browser" }
+      ],
+      deliverables: [
+        "Packaging designer with 3D preview",
+        "Wrapping paper designer",
+        "Export container planner"
+      ],
+      liveFeatures: [
+        "Pick a product and size a box",
+        "Rotate the 3D mockup",
+        "Download print files"
+      ]
+    },
+    {
       id: "ceo-command-center",
       title: "CEO Command Center",
       department: "Management",
