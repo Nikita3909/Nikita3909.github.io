@@ -151,6 +151,7 @@ export const PORTFOLIO_DATA = {
       result: "The team can plan purchases, track imports and payments, and ask the agent questions in plain English instead of searching sheets.",
       tech: ["React", "TypeScript", "Node.js", "LangGraph", "RAG", "Recharts", "Google Sheets API", "Vitest"],
       image: "/images/procurement-agent.png",
+      demoUrl: "/demos/procurement-agent/",
       chartType: "capacity",
       highlights: [
         "LangGraph agent (agent → tools → agent loop) with data-health checks and pending-order / vendor-rate tools",
