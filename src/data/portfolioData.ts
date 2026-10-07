@@ -8,6 +8,7 @@ export interface Project {
   result: string;
   tech: string[];
   image: string;
+  demoUrl?: string;
   chartType: 'forecast' | 'scorecard' | 'pulse' | 'reconcile' | 'capacity' | 'o2d' | 'sales' | 'crm' | 'tasks' | 'wfh';
   highlights: string[];
   metrics: { label: string; value: string; trend?: string }[];
@@ -150,6 +151,7 @@ export const PORTFOLIO_DATA = {
       result: "Management checks business health every day from one screen.",
       tech: ["Node.js", "Express", "Google Sheets API", "JavaScript", "Render"],
       image: "/images/command-center.png",
+      demoUrl: "/demos/command-center/",
       chartType: "scorecard",
       highlights: [
         "Penalty-based department scoring with a 'score basis' line explaining each score",

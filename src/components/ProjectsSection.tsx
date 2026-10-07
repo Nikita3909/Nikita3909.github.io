@@ -152,6 +152,18 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
                     </div>
                   </div>
 
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 text-xs font-bold hover:opacity-90 transition-opacity"
+                    >
+                      ▶ Open Live Demo
+                    </a>
+                  )}
+
                   {/* Tech Chips */}
                   <div className="pt-3 border-t border-white/10 flex flex-wrap items-center gap-1.5">
                     {project.tech.map((tech) => (
