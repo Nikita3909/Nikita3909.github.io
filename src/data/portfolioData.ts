@@ -351,6 +351,7 @@ export const PORTFOLIO_DATA = {
       result: "Sales, CRM and dispatch teams work from one system, each seeing only what their role needs.",
       tech: ["React", "Vite", "Node.js", "Express", "Google Sheets API", "Google OAuth", "OpenAI / OpenRouter", "node-cron"],
       image: "/images/full-crm.png",
+      demoUrl: "/demos/crm/",
       chartType: "crm",
       highlights: [
         "Role-based access with Google OAuth login",
