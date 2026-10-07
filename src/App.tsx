@@ -81,7 +81,7 @@ export default function App() {
         {/* 5. 10 Featured Flagship Projects */}
         <ProjectsSection onOpenProject={(proj) => setSelectedProject(proj)} />
 
-        {/* 6. 26 Additional Production Systems */}
+        {/* 6. Other systems */}
         <OtherSystemsSection />
 
         {/* 7. How I Work: 5-Step Methodology */}

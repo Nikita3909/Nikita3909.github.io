@@ -5,7 +5,6 @@ import {
   Code2, 
   CloudLightning, 
   Search, 
-  CheckCircle2, 
   Sparkles,
   Zap
 } from 'lucide-react';
@@ -71,7 +70,7 @@ export const SkillsSection: React.FC = () => {
                       {categoryIcons[idx]}
                     </div>
                     <span className="text-xs font-mono text-slate-400">
-                      {category.skills.length} Capabilities
+                      {category.skills.length} skills
                     </span>
                   </div>
 
@@ -82,47 +81,22 @@ export const SkillsSection: React.FC = () => {
                     {category.description}
                   </p>
 
-                  {/* Skills Chips / List */}
-                  <div className="mt-6 space-y-3">
+                  {/* Skills Chips */}
+                  <div className="mt-6 flex flex-wrap gap-2">
                     {filteredSkills.map((skill) => (
-                      <div key={skill.name} className="group/item">
-                        <div className="flex items-center justify-between text-xs text-slate-200 mb-1">
-                          <span className="font-medium group-hover/item:text-cyan-300 transition-colors">
-                            {skill.name}
-                          </span>
-                          <span className="font-mono text-slate-400 text-[11px]">
-                            {skill.level}%
-                          </span>
-                        </div>
-                        {/* Progress Bar */}
-                        <div className="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                          <div 
-                            className={`h-full rounded-full transition-all duration-500 ${
-                              idx === 0 
-                                ? 'bg-gradient-to-r from-cyan-500 to-teal-400' 
-                                : idx === 1 
-                                ? 'bg-gradient-to-r from-indigo-500 to-cyan-400' 
-                                : 'bg-gradient-to-r from-emerald-500 to-cyan-400'
-                            }`}
-                            style={{ width: `${skill.level}%` }}
-                          />
-                        </div>
-                      </div>
+                      <span
+                        key={skill.name}
+                        className="text-xs font-medium px-3 py-1.5 rounded-lg bg-slate-900/80 border border-white/10 text-slate-200 hover:border-cyan-500/50 hover:text-cyan-300 transition-colors"
+                      >
+                        {skill.name}
+                      </span>
                     ))}
-
                     {filteredSkills.length === 0 && (
                       <p className="text-xs text-slate-500 py-4 text-center">
                         No matches in this category
                       </p>
                     )}
                   </div>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                  <span>PRODUCTION TESTED</span>
-                  <span className="text-emerald-400 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5" /> VERIFIED
-                  </span>
                 </div>
 
               </div>

@@ -252,7 +252,7 @@
       os: { total: sum(OS.invoices, x => x.amount), overdue: sum(overdueInv, x => x.amount), count: overdueInv.length, buckets, bucketAmt, os90plus: bucketAmt['90+'], top: topOs },
       po: { total: Math.round(sum(PO.orders, o => o.pendingAmt)), count: PO.orders.length, overdue: poOver.length, overdueAmt: Math.round(sum(poOver, o => o.pendingAmt)),
         top: PO.orders.slice().sort((a, b) => b.pendingAmt - a.pendingAmt).slice(0, 5).map(o => ({ cust: o.customer, prod: o.product, amt: o.pendingAmt, days: Math.max(0, Math.round((TODAY - new Date(o.plannedDate.split('/').reverse().join('-'))) / 86400000)) })) },
-      production: { todayInput: sum(todayRows, x => x.input_kg), todayWaste: sum(todayRows, x => x.wastage_kg), todayPcs: sum(todayRows, x => x.pcs), depts, days },
+      production: { todayInput: sum(todayRows, x => x.input_kg), todayWaste: sum(todayRows, x => x.input_kg) ? round(sum(todayRows, x => x.wastage_kg) / sum(todayRows, x => x.input_kg) * 100, 1) : 0, todayPcs: sum(todayRows, x => x.pcs), depts, days },
       grossMargin: { sale, cost, margin: sale - cost, pct: round((sale - cost) / sale * 100, 1), topCusts: CUSTOMERS.slice(0, 5).map(name => ({ name, margin: ri(180000, 650000) })) },
       pipeline: { live: PIPE.kpis.totLive, pendAmt: PIPE.kpis.totPendAmt, disp: PIPE.kpis.totDisp, ach: PIPE.kpis.totAch, target: PIPE.kpis.totTarget }
     };

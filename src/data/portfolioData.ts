@@ -9,6 +9,7 @@ export interface Project {
   tech: string[];
   image: string;
   demoUrl?: string;
+  codeUrl?: string;
   chartType: 'forecast' | 'scorecard' | 'pulse' | 'reconcile' | 'capacity' | 'o2d' | 'sales' | 'crm' | 'tasks' | 'wfh';
   highlights: string[];
   metrics: { label: string; value: string; trend?: string }[];
@@ -80,10 +81,10 @@ export const PORTFOLIO_DATA = {
   },
 
   stats: [
-    { value: 36, label: "Business systems built", suffix: "", description: "Dashboards, trackers & automation" },
-    { value: 6, label: "Departments covered", suffix: "", description: "Sales, Production, Purchase, O2D, Stock & Admin" },
-    { value: 2, label: "Years experience", suffix: "", description: "Data analysis, dashboards & automation" },
-    { value: 15, label: "Tools & technologies", suffix: "+", description: "Python, SQL, JavaScript, React & cloud hosting" }
+    { value: 6, label: "Live demos", suffix: "", description: "Real systems you can click through" },
+    { value: 2, label: "ML projects with code", suffix: "", description: "Forecasting & churn, open on GitHub" },
+    { value: 36, label: "Internal tools shipped", suffix: "", description: "Dashboards, apps, automations & forms" },
+    { value: 2, label: "Years experience", suffix: "", description: "Data analysis, BI & automation" }
   ],
 
   marqueeTech: [
@@ -108,39 +109,6 @@ export const PORTFOLIO_DATA = {
   ],
 
   featuredProjects: [
-    {
-      id: "sales-intelligence",
-      title: "Sales Intelligence & Forecasting",
-      department: "Data Science",
-      category: "Data Science",
-      problem: "Sales data was only used for basic monthly reports. There was no view of trends, expected sales or which customers mattered most.",
-      whatBuilt: "A Python analytics project on a PostgreSQL sales database: trend analysis (EDA), a 3-month revenue forecast, RFM customer segmentation and an AI assistant that answers sales questions in plain English.",
-      result: "The team can see sales trends, expected revenue for the next 3 months and which customers are VIP or at risk.",
-      tech: ["Python", "Pandas", "PostgreSQL", "Statsmodels", "Plotly", "Streamlit", "Claude API"],
-      image: "/images/sales-analytics.png",
-      chartType: "forecast",
-      highlights: [
-        "Revenue forecast for the next 3 months using Holt-Winters exponential smoothing",
-        "Model checked on historical data with MAE and MAPE",
-        "RFM (Recency, Frequency, Monetary) segmentation into groups such as VIP and At Risk",
-        "AI sales assistant that turns plain-English questions into SQL and answers from live data"
-      ],
-      metrics: [
-        { label: "Forecast horizon", value: "3 months", trend: "Holt-Winters" },
-        { label: "Model check", value: "MAE + MAPE", trend: "On historical data" },
-        { label: "Segmentation", value: "RFM", trend: "Recency · Frequency · Monetary" }
-      ],
-      deliverables: [
-        "Streamlit web dashboard",
-        "Python scripts for EDA, forecasting and segmentation",
-        "AI assistant connected to the sales database"
-      ],
-      liveFeatures: [
-        "Monthly sales trend charts",
-        "Customer segment distribution and top customers per segment",
-        "Chat-style questions over sales data"
-      ]
-    },
     {
       id: "procurement-ai-agent",
       title: "Procurement AI Agent",
@@ -173,6 +141,142 @@ export const PORTFOLIO_DATA = {
         "Month-wise plan vs stock vs transit",
         "Import PO, payment and landed cost views",
         "Chat agent and command palette"
+      ]
+    },
+    {
+      id: "ceo-command-center",
+      title: "CEO Command Center",
+      department: "Management",
+      category: "Management",
+      problem: "The CEO had no single view of how each department was doing. Numbers were spread across many Google Sheets.",
+      whatBuilt: "A live web dashboard that reads 8 Google Sheets and gives each department a penalty score (0 = perfect, −100 = worst) with a reason line, an overall health score, an attention ranking and automatic alerts. Drill-down pages cover stock, receivables ageing, pending orders, sales pipeline and gross margin.",
+      result: "Management checks business health every day from one screen.",
+      tech: ["Node.js", "Express", "Google Sheets API", "JavaScript", "Render"],
+      image: "/images/command-center.png",
+      demoUrl: "/demos/command-center/",
+      chartType: "scorecard",
+      highlights: [
+        "Penalty-based department scoring with a 'score basis' line explaining each score",
+        "CEO Insights card: department attention ranking and automatic alerts",
+        "Stock page with Low / No Cost / Dead / Negative stock filters and Indian number format (₹ L / Cr)",
+        "Pending Orders page with searchable filters, oldest-first sorting and CSV download"
+      ],
+      metrics: [
+        { label: "Departments scored", value: "7", trend: "Overall health score" },
+        { label: "Sheets connected", value: "8", trend: "Google Sheets API" },
+        { label: "Data refresh", value: "5 min", trend: "Server-side cache" }
+      ],
+      deliverables: [
+        "Node.js + Express web app deployed on Render",
+        "Google Sheets service-account data layer with caching",
+        "Drill-down pages for 6+ business areas"
+      ],
+      liveFeatures: [
+        "Department score cards with colour-coded gauges",
+        "Receivables ageing buckets: 0–30, 31–60, 61–90, 90+ days",
+        "Gross margin with fuzzy product-to-cost matching"
+      ]
+    },
+    {
+      id: "ml-demand-forecasting",
+      title: "Demand Forecasting: 7 Models Compared",
+      department: "Machine Learning",
+      category: "Data Science",
+      problem: "Production and purchase planning needs reliable demand forecasts weeks ahead, and it is not obvious which forecasting method works best.",
+      whatBuilt: "An 8-week-ahead weekly demand forecast for 10 products, comparing naive baselines, Holt-Winters, ridge regression, random forest and gradient boosting on the same rolling-origin backtest (4 folds), with leakage-safe lag features and automated leakage tests.",
+      result: "Random forest reached 12.0% WAPE — 17.5% lower error than the seasonal-naive baseline (~100 fewer cartons of error per week) — with Holt-Winters a close second at 12.7%.",
+      tech: ["Python", "scikit-learn", "statsmodels", "Pandas", "Matplotlib"],
+      image: "/images/ml-forecasting.png",
+      codeUrl: "https://github.com/Nikita3909/ml-demand-forecasting",
+      chartType: "forecast",
+      highlights: [
+        "Rolling-origin backtest: 4 folds × 8 weeks, 320 forecasts per model",
+        "Direct multi-step strategy: all demand features lagged ≥ 8 weeks (no leakage)",
+        "One global ML model across SKUs using level-scaled targets",
+        "Tests prove that changing future demand never changes the features"
+      ],
+      metrics: [
+        { label: "Best WAPE", value: "12.0%", trend: "Random forest" },
+        { label: "vs baseline", value: "−17.5%", trend: "Seasonal naive 14.6%" },
+        { label: "Bias", value: "−1.3%", trend: "Baselines −6% to −9%" }
+      ],
+      deliverables: [
+        "Reproducible Python project (synthetic data, fixed seed)",
+        "Metrics table and 4 result charts",
+        "Leakage tests"
+      ],
+      liveFeatures: [
+        "Model comparison with error bars",
+        "Error by forecast horizon",
+        "Feature importance"
+      ]
+    },
+    {
+      id: "full-stack-crm",
+      title: "Full-Stack Sales CRM",
+      department: "Sales",
+      category: "Sales",
+      problem: "Orders, dispatch, follow-ups, grievances and leads were handled in separate sheets and forms with no role-based access.",
+      whatBuilt: "A full CRM with Google login and roles (admin, CRM, dispatch): dashboard, order entry with auto order IDs and stock checks, dispatch with photo upload, SCOT tracker, reorder risk prediction, pipeline, grievances, WhatsApp, reports and an AI assistant with lead generation.",
+      result: "Sales, CRM and dispatch teams work from one system, each seeing only what their role needs.",
+      tech: ["React", "Vite", "Node.js", "Express", "Google Sheets API", "Google OAuth", "OpenAI / OpenRouter", "node-cron"],
+      image: "/images/full-crm.png",
+      demoUrl: "/demos/crm/",
+      chartType: "crm",
+      highlights: [
+        "Role-based access with Google OAuth login",
+        "New order form that auto-generates order IDs and triggers the stock engine",
+        "Reorder risk tracker predicting which customers are due to reorder (High / Medium / Low / New)",
+        "Below-benchmark price and delayed-order views with PDF and Excel export"
+      ],
+      metrics: [
+        { label: "Pages", value: "24", trend: "React app" },
+        { label: "User roles", value: "3", trend: "Admin · CRM · Dispatch" },
+        { label: "AI", value: "Assistant", trend: "Plus lead generator" }
+      ],
+      deliverables: [
+        "React + Vite frontend",
+        "Express backend with scheduled jobs",
+        "Google Sheets data layer"
+      ],
+      liveFeatures: [
+        "Order, dispatch and payment tracking",
+        "SCOT and reorder trackers",
+        "AI assistant and lead generator"
+      ]
+    },
+    {
+      id: "ml-customer-churn",
+      title: "B2B Customer Churn Prediction + RFM",
+      department: "Machine Learning",
+      category: "Data Science",
+      problem: "Sales teams can only call a limited number of customers, so they need to know which active customers are about to stop ordering.",
+      whatBuilt: "A churn model that predicts which active customers will place no order in the next 90 days, trained on monthly snapshots with a time-based split, compared against a 'no order in 60 days' business rule and classic RFM segmentation.",
+      result: "Calling the riskiest 20% of customers reaches 91% of churners (rule: 80%), covering 84% of revenue at risk. RFM's 'At Risk' segment had 0% churn — the model catches it by comparing each customer to their own ordering rhythm.",
+      tech: ["Python", "scikit-learn", "Pandas", "Matplotlib"],
+      image: "/images/ml-churn.png",
+      codeUrl: "https://github.com/Nikita3909/ml-customer-churn",
+      chartType: "crm",
+      highlights: [
+        "Snapshot-based features: recency, frequency, spend, gap trend, spend trend, complaints",
+        "Time-based split so no test-period information leaks into training",
+        "PR-AUC and precision/recall in the top 20% — metrics that match the business decision",
+        "Honest finding: RFM labels alone can mislead"
+      ],
+      metrics: [
+        { label: "PR-AUC", value: "0.91", trend: "Rule: 0.80" },
+        { label: "Churners reached", value: "91%", trend: "Calling top 20%" },
+        { label: "Revenue at risk covered", value: "84%", trend: "Top 20% list" }
+      ],
+      deliverables: [
+        "Reproducible Python project (synthetic data)",
+        "ROC, gains, RFM and importance charts",
+        "Leakage tests"
+      ],
+      liveFeatures: [
+        "Cumulative gains chart",
+        "Churn rate by RFM segment",
+        "Feature importance"
       ]
     },
     {
@@ -278,37 +382,36 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "ceo-command-center",
-      title: "CEO Command Center",
-      department: "Management",
-      category: "Management",
-      problem: "The CEO had no single view of how each department was doing. Numbers were spread across many Google Sheets.",
-      whatBuilt: "A live web dashboard that reads 8 Google Sheets and gives each department a penalty score (0 = perfect, −100 = worst) with a reason line, an overall health score, an attention ranking and automatic alerts. Drill-down pages cover stock, receivables ageing, pending orders, sales pipeline and gross margin.",
-      result: "Management checks business health every day from one screen.",
-      tech: ["Node.js", "Express", "Google Sheets API", "JavaScript", "Render"],
-      image: "/images/command-center.png",
-      demoUrl: "/demos/command-center/",
-      chartType: "scorecard",
+      id: "sales-intelligence",
+      title: "Sales Intelligence & Forecasting",
+      department: "Data Science",
+      category: "Data Science",
+      problem: "Sales data was only used for basic monthly reports. There was no view of trends, expected sales or which customers mattered most.",
+      whatBuilt: "A Python analytics project on a PostgreSQL sales database: trend analysis (EDA), a 3-month revenue forecast, RFM customer segmentation and an AI assistant that answers sales questions in plain English.",
+      result: "The team can see sales trends, expected revenue for the next 3 months and which customers are VIP or at risk.",
+      tech: ["Python", "Pandas", "PostgreSQL", "Statsmodels", "Plotly", "Streamlit", "Claude API"],
+      image: "/images/sales-analytics.png",
+      chartType: "forecast",
       highlights: [
-        "Penalty-based department scoring with a 'score basis' line explaining each score",
-        "CEO Insights card: department attention ranking and automatic alerts",
-        "Stock page with Low / No Cost / Dead / Negative stock filters and Indian number format (₹ L / Cr)",
-        "Pending Orders page with searchable filters, oldest-first sorting and CSV download"
+        "Revenue forecast for the next 3 months using Holt-Winters exponential smoothing",
+        "Model checked on historical data with MAE and MAPE",
+        "RFM (Recency, Frequency, Monetary) segmentation into groups such as VIP and At Risk",
+        "AI sales assistant that turns plain-English questions into SQL and answers from live data"
       ],
       metrics: [
-        { label: "Departments scored", value: "7", trend: "Overall health score" },
-        { label: "Sheets connected", value: "8", trend: "Google Sheets API" },
-        { label: "Data refresh", value: "5 min", trend: "Server-side cache" }
+        { label: "Forecast horizon", value: "3 months", trend: "Holt-Winters" },
+        { label: "Model check", value: "MAE + MAPE", trend: "On historical data" },
+        { label: "Segmentation", value: "RFM", trend: "Recency · Frequency · Monetary" }
       ],
       deliverables: [
-        "Node.js + Express web app deployed on Render",
-        "Google Sheets service-account data layer with caching",
-        "Drill-down pages for 6+ business areas"
+        "Streamlit web dashboard",
+        "Python scripts for EDA, forecasting and segmentation",
+        "AI assistant connected to the sales database"
       ],
       liveFeatures: [
-        "Department score cards with colour-coded gauges",
-        "Receivables ageing buckets: 0–30, 31–60, 61–90, 90+ days",
-        "Gross margin with fuzzy product-to-cost matching"
+        "Monthly sales trend charts",
+        "Customer segment distribution and top customers per segment",
+        "Chat-style questions over sales data"
       ]
     },
     {
@@ -378,39 +481,6 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "factory-capacity-assessment",
-      title: "Factory Capacity Assessment",
-      department: "Data Science",
-      category: "Data Science",
-      problem: "Production planning did not have a clear measure of how much each machine and line can actually produce.",
-      whatBuilt: "A 12-step capacity mapping system that uses production, machine and downtime data stored in Google Sheets, with a Python calculation engine and exports.",
-      result: "Capacity is calculated from recorded data, giving planning a measured basis.",
-      tech: ["Python", "FastAPI", "Google Apps Script", "Google Sheets API"],
-      image: "/images/capacity-assessment.png",
-      chartType: "capacity",
-      highlights: [
-        "12-step factory capacity mapping",
-        "Production, machine and downtime data kept in Google Sheets (no separate database)",
-        "Apps Script setup and data fetch from the main production sheet",
-        "Export of capacity results"
-      ],
-      metrics: [
-        { label: "Method", value: "12 steps", trend: "Capacity mapping" },
-        { label: "Backend", value: "FastAPI", trend: "Python" },
-        { label: "Storage", value: "Sheets", trend: "No local DB" }
-      ],
-      deliverables: [
-        "FastAPI backend with calculator and exporter",
-        "Sheet setup scripts",
-        "Web front end"
-      ],
-      liveFeatures: [
-        "Machine and downtime inputs",
-        "Capacity calculation results",
-        "Export"
-      ]
-    },
-    {
       id: "o2d-tracking-system",
       title: "O2D Tracking System",
       department: "Operations",
@@ -444,37 +514,36 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "full-stack-crm",
-      title: "Full-Stack Sales CRM",
-      department: "Sales",
-      category: "Sales",
-      problem: "Orders, dispatch, follow-ups, grievances and leads were handled in separate sheets and forms with no role-based access.",
-      whatBuilt: "A full CRM with Google login and roles (admin, CRM, dispatch): dashboard, order entry with auto order IDs and stock checks, dispatch with photo upload, SCOT tracker, reorder risk prediction, pipeline, grievances, WhatsApp, reports and an AI assistant with lead generation.",
-      result: "Sales, CRM and dispatch teams work from one system, each seeing only what their role needs.",
-      tech: ["React", "Vite", "Node.js", "Express", "Google Sheets API", "Google OAuth", "OpenAI / OpenRouter", "node-cron"],
-      image: "/images/full-crm.png",
-      demoUrl: "/demos/crm/",
-      chartType: "crm",
+      id: "factory-capacity-assessment",
+      title: "Factory Capacity Assessment",
+      department: "Data Science",
+      category: "Data Science",
+      problem: "Production planning did not have a clear measure of how much each machine and line can actually produce.",
+      whatBuilt: "A 12-step capacity mapping system that uses production, machine and downtime data stored in Google Sheets, with a Python calculation engine and exports.",
+      result: "Capacity is calculated from recorded data, giving planning a measured basis.",
+      tech: ["Python", "FastAPI", "Google Apps Script", "Google Sheets API"],
+      image: "/images/capacity-assessment.png",
+      chartType: "capacity",
       highlights: [
-        "Role-based access with Google OAuth login",
-        "New order form that auto-generates order IDs and triggers the stock engine",
-        "Reorder risk tracker predicting which customers are due to reorder (High / Medium / Low / New)",
-        "Below-benchmark price and delayed-order views with PDF and Excel export"
+        "12-step factory capacity mapping",
+        "Production, machine and downtime data kept in Google Sheets (no separate database)",
+        "Apps Script setup and data fetch from the main production sheet",
+        "Export of capacity results"
       ],
       metrics: [
-        { label: "Pages", value: "24", trend: "React app" },
-        { label: "User roles", value: "3", trend: "Admin · CRM · Dispatch" },
-        { label: "AI", value: "Assistant", trend: "Plus lead generator" }
+        { label: "Method", value: "12 steps", trend: "Capacity mapping" },
+        { label: "Backend", value: "FastAPI", trend: "Python" },
+        { label: "Storage", value: "Sheets", trend: "No local DB" }
       ],
       deliverables: [
-        "React + Vite frontend",
-        "Express backend with scheduled jobs",
-        "Google Sheets data layer"
+        "FastAPI backend with calculator and exporter",
+        "Sheet setup scripts",
+        "Web front end"
       ],
       liveFeatures: [
-        "Order, dispatch and payment tracking",
-        "SCOT and reorder trackers",
-        "AI assistant and lead generator"
+        "Machine and downtime inputs",
+        "Capacity calculation results",
+        "Export"
       ]
     },
     {

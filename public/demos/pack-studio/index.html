@@ -1785,7 +1785,7 @@ function initUI() {
   rebuild();
   load3D();
   let seen = false; try { seen = !!localStorage.getItem('bpps_welcome'); } catch (e) { }
-  if (!seen) $('#welcome').classList.add('on');
+  if (!seen && !/[?&]nowelcome/.test(location.search)) $('#welcome').classList.add('on');
   if (document.fonts) {
     try { await Promise.race([Promise.all(['400', '500', '600', '700', '800'].map(w => document.fonts.load(`${w} 20px Poppins`))), new Promise(r => setTimeout(r, 3000))]); } catch (e) { }
     refreshArt();

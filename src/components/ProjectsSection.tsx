@@ -42,13 +42,13 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
             <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-2">
               <span>02</span>
               <span aria-hidden="true">/</span>
-              <span>Production Systems Architecture</span>
+              <span>Selected Work</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-100 tracking-tight text-balance">
               Featured Systems & Deployed Dashboards
             </h2>
             <p className="mt-2 text-slate-400 text-sm max-w-xl text-balance">
-              15 key systems — from live dashboards and forecasting to AI agents, n8n automations and a full CRM.
+              Flagship work first: an AI procurement agent, live management dashboards, two ML projects with open code, a full CRM and AI automations.
             </p>
           </div>
 
@@ -152,16 +152,31 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
                     </div>
                   </div>
 
-                  {project.demoUrl && (
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 text-xs font-bold hover:opacity-90 transition-opacity"
-                    >
-                      ▶ Open Live Demo
-                    </a>
+                  {(project.demoUrl || project.codeUrl) && (
+                    <div className="flex gap-2">
+                      {project.demoUrl && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 text-xs font-bold hover:opacity-90 transition-opacity"
+                        >
+                          ▶ Open Live Demo
+                        </a>
+                      )}
+                      {project.codeUrl && (
+                        <a
+                          href={project.codeUrl}
+                          target="_blank"
+                          rel="noopener"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-cyan-400/60 text-cyan-300 text-xs font-bold hover:bg-cyan-400/10 transition-colors"
+                        >
+                          {'</>'} View Code
+                        </a>
+                      )}
+                    </div>
                   )}
 
                   {/* Tech Chips */}

@@ -213,20 +213,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 <span className="font-semibold text-slate-200">Production Deliverables:</span>
                 <span className="text-slate-400 ml-2">{project.deliverables.join(' · ')}</span>
               </div>
-              {project.demoUrl ? (
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener"
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold whitespace-nowrap hover:opacity-90"
-                >
-                  ▶ Open Live Demo
-                </a>
-              ) : (
-                <span className="text-emerald-400 font-mono font-medium whitespace-nowrap">
-                  Used in production
-                </span>
-              )}
+              <div className="flex flex-wrap gap-2">
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold whitespace-nowrap hover:opacity-90"
+                  >
+                    ▶ Open Live Demo
+                  </a>
+                )}
+                {project.codeUrl && (
+                  <a
+                    href={project.codeUrl}
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-cyan-400/60 text-cyan-300 font-bold whitespace-nowrap hover:bg-cyan-400/10"
+                  >
+                    {'</>'} View Code
+                  </a>
+                )}
+                {!project.demoUrl && !project.codeUrl && (
+                  <span className="text-emerald-400 font-mono font-medium whitespace-nowrap">Used in production</span>
+                )}
+              </div>
             </div>
 
           </div>
