@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 interface InteractiveMockupProps {
-  type?: 'hero' | 'forecast' | 'scorecard' | 'pulse' | 'reconcile' | 'capacity' | 'o2d' | 'sales' | 'crm' | 'tasks' | 'wfh';
+  type?: 'hero' | 'forecast' | 'scorecard' | 'pulse' | 'reconcile' | 'capacity' | 'o2d' | 'sales' | 'crm' | 'tasks';
   interactive?: boolean;
 }
 

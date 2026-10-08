@@ -189,39 +189,6 @@ export const ProjectChartFallback: React.FC<ProjectChartFallbackProps> = ({ char
         </div>
       );
 
-    case 'wfh':
-      return (
-        <div className="w-full h-full p-4 flex flex-col justify-between bg-slate-900/90 text-xs">
-          <div className="flex items-center justify-between pb-2 border-b border-white/10">
-            <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-cyan-400" /> WFH Active Minutes Agent
-            </span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono">
-              AGENT SYNCED
-            </span>
-          </div>
-          <div className="my-2 space-y-1.5">
-            <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono">
-              <span>ACTIVE TIME (SAMPLE)</span>
-              <span className="text-slate-500">IDLE: 0.8 HRS</span>
-            </div>
-            <div className="w-full h-3 rounded-full bg-slate-800 overflow-hidden flex">
-              <div className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400" style={{ width: '85%' }} />
-              <div className="h-full bg-slate-700" style={{ width: '15%' }} />
-            </div>
-            <div className="flex justify-between text-[10px] text-slate-400 pt-1">
-              <span>09:00 AM Login</span>
-              <span className="text-emerald-400">100% Timesheet Compliance</span>
-              <span>06:30 PM Logout</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-between text-[10px] text-slate-400 border-t border-white/10 pt-1">
-            <span>Vercel Ingest Serverless API</span>
-            <span className="text-cyan-400 font-mono">&lt; 25 MB RAM Footprint</span>
-          </div>
-        </div>
-      );
-
     default:
       return (
         <div className="w-full h-full p-4 flex flex-col justify-between bg-slate-900/90 text-xs">

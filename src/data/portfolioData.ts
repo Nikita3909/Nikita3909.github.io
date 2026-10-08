@@ -10,7 +10,7 @@ export interface Project {
   image: string;
   demoUrl?: string;
   codeUrl?: string;
-  chartType: 'forecast' | 'scorecard' | 'pulse' | 'reconcile' | 'capacity' | 'o2d' | 'sales' | 'crm' | 'tasks' | 'wfh';
+  chartType: 'forecast' | 'scorecard' | 'pulse' | 'reconcile' | 'capacity' | 'o2d' | 'sales' | 'crm' | 'tasks';
   highlights: string[];
   metrics: { label: string; value: string; trend?: string }[];
   deliverables: string[];
