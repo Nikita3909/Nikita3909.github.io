@@ -55,7 +55,7 @@ export const PORTFOLIO_DATA = {
     name: "Nikita Sham Gurav",
     shortName: "Nikita Gurav",
     initials: "NG",
-    role: "Data Science Analyst",
+    role: "AI Data Science Analyst",
     department: "AI & Data Science",
     experienceYears: 2,
     systemsCount: 36,
@@ -64,11 +64,11 @@ export const PORTFOLIO_DATA = {
     focus: "Data Science, Dashboards, Automation",
     industry: "Manufacturing",
     location: "India",
-    email: "your.email@gmail.com",
+    email: "nikitagurav102@gmail.com",
     github: "https://github.com/Nikita3909",
-    linkedin: "https://www.linkedin.com/in/your-linkedin",
-    bio: "I'm Nikita Sham Gurav, a Data Science Analyst in the AI & Data Science team with 2 years of experience. At a manufacturing company I built 36 systems covering Sales, Production, Purchase, Order-to-Delivery, Stock and Admin. I work end to end: understanding the business problem, connecting the data, analysing and forecasting, building the dashboard or app, automating updates and deploying it live.",
-    heroBadge: "Data Science Analyst · AI & Data Science",
+    linkedin: "https://www.linkedin.com/in/nikita-gurav-a7b7732b9",
+    bio: "I'm Nikita Sham Gurav, an AI Data Science Analyst with 2 years of experience. At a manufacturing company I built 36 systems covering Sales, Production, Purchase, Order-to-Delivery, Stock and Admin. I work end to end: understanding the business problem, connecting the data, analysing and forecasting, building the dashboard or app, automating updates and deploying it live.",
+    heroBadge: "AI Data Science Analyst",
     heroHeading: "Hi, I'm Nikita Gurav. I turn business data into live dashboards, AI insights & automation.",
     heroSubtext: "I build end-to-end data systems — from raw data to deployed web dashboards and forecasting models — that help management see live numbers and remove manual reporting.",
     rotatingRoles: [
@@ -994,29 +994,20 @@ export const PORTFOLIO_DATA = {
   experiences: [
     {
       period: "Sep 2025 – Present",
-      role: "Data Science Analyst",
+      role: "AI Data Science Analyst",
       department: "AI & Data Science",
-      organization: "Manufacturing Company",
+      organization: "BioPapro Pvt Ltd",
       summary: "Building data systems, dashboards and automation for the whole business — 36 systems across Sales, Production, Purchase, Order-to-Delivery, Stock and Admin.",
       achievements: [
         "Built and deployed 36 business systems across 6 departments using Google Sheets, Apps Script, Node.js, React and Python.",
         "Built the CEO Command Center: live department scoring, attention ranking and alerts with drill-downs for stock, receivables, orders, pipeline and margin.",
         "Built sales forecasting (Holt-Winters), RFM customer segmentation and an AI sales assistant on a PostgreSQL sales database.",
+        "Built a Procurement AI Agent (LangGraph tool-calling agent with local RAG search and a procurement knowledge graph) covering planning, import POs, payments and landed cost.",
+        "Built a full-stack CRM (24 pages, Google login, 3 roles) and an export lead tracker with planned-vs-actual follow-up tracking.",
+        "Automated marketing and WhatsApp lead qualification with n8n AI agents, and synced Tally finance reports into Google Sheets dashboards.",
         "Built a Tally vs dispatch reconciliation tool that flags quantity and amount mismatches by invoice."
       ],
-      keyTools: ["Python", "Pandas", "SQL", "React", "Node.js", "Google Apps Script", "Google Sheets API", "Render"]
-    },
-    {
-      period: "[Month Year] – [Month Year]",
-      role: "[Previous Role]",
-      department: "[Department]",
-      organization: "[Previous Company]",
-      summary: "[One line about your previous work]",
-      achievements: [
-        "[Main thing you did or achieved]",
-        "[Second thing you did or achieved]"
-      ],
-      keyTools: ["[Tool]", "[Tool]"]
+      keyTools: ["Python", "Pandas", "SQL", "React", "TypeScript", "Node.js", "LangGraph", "n8n", "Google Apps Script", "Google Sheets API", "Render"]
     }
   ] as ExperienceItem[]
 };

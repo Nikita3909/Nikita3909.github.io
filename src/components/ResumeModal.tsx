@@ -34,7 +34,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
   const handleCopyText = () => {
     const text = `
 NIKITA SHAM GURAV
-Data Science Analyst · AI & Data Science
+AI Data Science Analyst
 Email: ${profile.email} | GitHub: ${profile.github} | Location: ${profile.location}
 
 PROFESSIONAL SUMMARY
@@ -129,7 +129,7 @@ FLAGSHIP SYSTEMS BUILT (36 Total Across 6 Departments):
                   Nikita Sham Gurav
                 </h1>
                 <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
-                  Data Science Analyst · AI & Data Science
+                  AI Data Science Analyst
                 </p>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs text-slate-400 mt-2 font-mono">
                   <span className="flex items-center gap-1">

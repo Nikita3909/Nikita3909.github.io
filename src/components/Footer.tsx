@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
             </span>
             <span className="text-slate-600 hidden sm:inline" aria-hidden="true">·</span>
             <span className="text-slate-400">
-              Data Science Analyst (AI & Data Science)
+              AI Data Science Analyst
             </span>
           </div>
 
