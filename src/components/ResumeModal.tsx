@@ -43,7 +43,7 @@ ${profile.bio}
 CORE SKILLS
 - Data Science & Analytics: Python, Pandas, SQL, Time-Series Forecasting, RFM Customer Segmentation, EDA, Plotly
 - Development: JavaScript, TypeScript, React, Node.js, Express, FastAPI, Streamlit, HTML/CSS
-- Automation & Deployment: Google Apps Script, Google Sheets API, SQLite, MongoDB, Git, Render, Vercel
+- Automation & Deployment: Google Apps Script, Google Sheets API, SQLite, MongoDB, Git, Render
 
 PROFESSIONAL EXPERIENCE
 ${experiences.map(e => `
@@ -63,7 +63,6 @@ FLAGSHIP SYSTEMS BUILT (36 Total Across 6 Departments):
 6. O2D Tracking System (Operations - Node.js, SQLite, Apps Script)
 7. Sales Management Suite & CRM (Sales - Node.js, Apps Script)
 8. Admin Task Tracker & FMS (Operations - React, MongoDB, Apps Script)
-9. WFH Time & Productivity Tracker (Operations - Node.js, Vercel)
 `.trim();
 
     navigator.clipboard.writeText(text);
@@ -251,7 +250,7 @@ FLAGSHIP SYSTEMS BUILT (36 Total Across 6 Departments):
                 </div>
                 <div>
                   <span className="font-semibold text-slate-200">Automation & Cloud:</span>
-                  <span className="text-slate-300 ml-2">Google Apps Script, Google Sheets API, SQLite, MongoDB, Git & GitHub, Render, Vercel</span>
+                  <span className="text-slate-300 ml-2">Google Apps Script, Google Sheets API, SQLite, MongoDB, Git & GitHub, Render</span>
                 </div>
               </div>
             </div>

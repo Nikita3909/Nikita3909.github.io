@@ -104,8 +104,7 @@ export const PORTFOLIO_DATA = {
     { name: "SQLite", category: "Database" },
     { name: "MongoDB", category: "NoSQL" },
     { name: "Git", category: "DevOps" },
-    { name: "Render", category: "Deployment" },
-    { name: "Vercel", category: "Deployment" }
+    { name: "Render", category: "Deployment" }
   ],
 
   featuredProjects: [
@@ -644,39 +643,6 @@ export const PORTFOLIO_DATA = {
         "Employee report view",
         "Filters by FMS and member"
       ]
-    },
-    {
-      id: "wfh-time-tracker",
-      title: "WFH Time Tracker",
-      department: "Operations",
-      category: "Operations",
-      problem: "There was no simple way to record active working time for remote work.",
-      whatBuilt: "A Windows desktop agent that counts active and idle minutes and sends them to a serverless API on Vercel, which saves daily totals per employee to a Google Sheet.",
-      result: "Daily active and idle minutes per employee are recorded automatically.",
-      tech: ["Node.js", "Vercel", "Serverless API", "Google Sheets API"],
-      image: "/images/wfh-tracker.png",
-      chartType: "wfh",
-      highlights: [
-        "Idle detection in the desktop agent",
-        "Agent packaged as a Windows .exe",
-        "Serverless track and health endpoints",
-        "Upsert of one row per employee per day"
-      ],
-      metrics: [
-        { label: "Parts", value: "3", trend: "Agent · API · Sheet" },
-        { label: "Hosting", value: "Vercel", trend: "Serverless" },
-        { label: "Granularity", value: "Daily", trend: "Per employee" }
-      ],
-      deliverables: [
-        "Windows desktop agent",
-        "Vercel serverless API",
-        "Google Sheet daily activity log"
-      ],
-      liveFeatures: [
-        "Active vs idle minutes",
-        "First and last sync time",
-        "Employee list"
-      ]
     }
   ] as Project[],
 
@@ -909,7 +875,7 @@ export const PORTFOLIO_DATA = {
       title: "Automate & Deploy",
       subtitle: "Automation & Hosting",
       description: "I set up timer-based syncs and caching so data stays up to date without manual work, and deploy the apps online.",
-      tools: ["Render", "Vercel", "Apps Script Triggers", "Git & GitHub"]
+      tools: ["Render", "Apps Script Triggers", "Git & GitHub"]
     }
   ] as WorkStep[],
 
@@ -952,7 +918,6 @@ export const PORTFOLIO_DATA = {
         { name: "MongoDB", level: 60, featured: true },
         { name: "Git & GitHub", level: 75, featured: true },
         { name: "Render Deployment", level: 80, featured: true },
-        { name: "Vercel Serverless", level: 70, featured: true },
         { name: "Scheduled Automation", level: 85, featured: true }
       ]
     }
