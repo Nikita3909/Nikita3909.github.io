@@ -61,13 +61,13 @@ export default function App() {
       <Navbar 
         isDark={isDark} 
         onToggleTheme={handleToggleTheme} 
-        onOpenResume={() => setIsResumeOpen(true)} 
+        onOpenResume={() => window.open('/Nikita_Gurav_Resume.pdf', '_blank', 'noopener')} 
       />
 
       {/* Main Content Sections */}
       <main>
         {/* 1. Hero Section */}
-        <Hero onOpenResume={() => setIsResumeOpen(true)} />
+        <Hero onOpenResume={() => window.open('/Nikita_Gurav_Resume.pdf', '_blank', 'noopener')} />
 
         {/* 2. Key Quantified Stats */}
         <StatsSection />

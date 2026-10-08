@@ -3,7 +3,7 @@ import { PORTFOLIO_DATA } from '../data/portfolioData';
 import { Briefcase, Calendar, CheckCircle2, ChevronRight, Award } from 'lucide-react';
 
 export const ExperienceSection: React.FC = () => {
-  const { experiences } = PORTFOLIO_DATA;
+  const { experiences, education, certifications } = PORTFOLIO_DATA;
 
   return (
     <section id="experience" className="py-24 relative z-10 border-t border-white/10 bg-slate-950/40">
@@ -91,6 +91,39 @@ export const ExperienceSection: React.FC = () => {
 
             </div>
           ))}
+        </div>
+
+        {/* Education & Certifications */}
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="glass-card rounded-2xl p-6 border border-white/10">
+            <h3 className="text-lg font-bold text-slate-100 mb-4 flex items-center gap-2">
+              <Award className="w-5 h-5 text-cyan-400" /> Education
+            </h3>
+            <div className="space-y-4">
+              {education.map((e) => (
+                <div key={e.degree} className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-100">{e.degree}</p>
+                    <p className="text-xs text-slate-400">{e.school} · {e.year}</p>
+                  </div>
+                  <span className="text-xs font-mono px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 whitespace-nowrap">{e.score}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="glass-card rounded-2xl p-6 border border-white/10">
+            <h3 className="text-lg font-bold text-slate-100 mb-4 flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Certifications &amp; Awards
+            </h3>
+            <ul className="space-y-3">
+              {certifications.map((c) => (
+                <li key={c.title}>
+                  <p className="text-sm font-semibold text-slate-100">{c.title}</p>
+                  <p className="text-xs text-slate-400">{c.issuer}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
       </div>

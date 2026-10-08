@@ -1003,6 +1003,18 @@ export const PORTFOLIO_DATA = {
     }
   ] as SkillCategory[],
 
+  education: [
+    { degree: "MSc in Data Science", school: "University of Pune", year: "2025", score: "CGPA 9.61 / 10" },
+    { degree: "BSc in Mathematics", school: "University of Mumbai", year: "2023", score: "CGPA 8.50 / 10" }
+  ],
+
+  certifications: [
+    { title: "Gold Certificate — Data Science & Analytics", issuer: "FutureSkills Prime, Government of India" },
+    { title: "Python for Data Science & Machine Learning", issuer: "Udemy" },
+    { title: "Advanced Excel Certification", issuer: "Quantum Learnings" },
+    { title: "Lila Poonawala Foundation Scholarship", issuer: "Academic Excellence Award" }
+  ],
+
   experiences: [
     {
       period: "Sep 2025 – Present",
