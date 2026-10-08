@@ -57,17 +57,18 @@ export const PORTFOLIO_DATA = {
     initials: "NG",
     role: "AI Data Science Analyst",
     department: "AI & Data Science",
-    experienceYears: 2,
+    experienceYears: 1.5,
     systemsCount: 36,
     departmentsCount: 6,
     toolsCount: "15+",
     focus: "AI agents, full-stack apps, ML",
     industry: "Manufacturing (in-house tech)",
-    location: "India",
+    location: "Navi Mumbai, India",
+    education: "MSc Data Science (CGPA 9.61)",
     email: "nikitagurav102@gmail.com",
     github: "https://github.com/Nikita3909",
     linkedin: "https://www.linkedin.com/in/nikita-gurav-a7b7732b9",
-    bio: "I'm Nikita Sham Gurav, an AI Data Science Analyst with 2 years of experience building software end to end. I build my company's internal software on my own — AI agents with RAG and tool calling, full-stack apps in React, TypeScript and Node.js, ML forecasting and churn models, and automated data pipelines — and run them for sales, finance, production and management teams who use them every day. I'm now looking to bring this to an IT or product company.",
+    bio: "I'm Nikita Sham Gurav, an AI Data Science Analyst with an MSc in Data Science (CGPA 9.61) and 1.5+ years of professional experience building software end to end. I build my company's internal software on my own — AI agents with RAG and tool calling, full-stack apps in React, TypeScript and Node.js, ML forecasting and churn models, and automated data pipelines — and run them for sales, finance, production and management teams who use them every day. I'm now looking to bring this to an IT or product company.",
     heroBadge: "AI Data Science Analyst",
     heroHeading: "Hi, I'm Nikita Gurav. I build AI agents, full-stack apps & ML models.",
     heroSubtext: "I design, code and ship complete products — React front ends, Node.js and Python APIs, ML models and LLM agents — and run them in production for real users every day.",
@@ -84,7 +85,7 @@ export const PORTFOLIO_DATA = {
     { value: 8, label: "Live demos", suffix: "", description: "Real systems you can click through" },
     { value: 2, label: "ML projects with code", suffix: "", description: "Forecasting & churn, open on GitHub" },
     { value: 36, label: "Internal tools shipped", suffix: "", description: "Dashboards, apps, automations & forms" },
-    { value: 2, label: "Years experience", suffix: "", description: "Data analysis, BI & automation" }
+    { value: 1, label: "Years professional experience", suffix: ".5+", description: "Plus 2 data analyst internships" }
   ],
 
   marqueeTech: [
@@ -993,7 +994,11 @@ export const PORTFOLIO_DATA = {
         { name: "Google Apps Script", level: 0, featured: true },
         { name: "n8n workflows", level: 0, featured: true },
         { name: "Render deployment", level: 0, featured: true },
-        { name: "Plotly & Streamlit", level: 0, featured: true }
+        { name: "Plotly & Streamlit", level: 0, featured: true },
+        { name: "Power BI & DAX", level: 0, featured: true },
+        { name: "Tableau", level: 0, featured: true },
+        { name: "Looker Studio", level: 0, featured: true },
+        { name: "Advanced Excel", level: 0, featured: true }
       ]
     }
   ] as SkillCategory[],
@@ -1006,6 +1011,7 @@ export const PORTFOLIO_DATA = {
       organization: "BioPapro Pvt Ltd",
       summary: "Building data systems, dashboards and automation for the whole business — 36 systems across Sales, Production, Purchase, Order-to-Delivery, Stock and Admin.",
       achievements: [
+        "Automated recurring MIS reports and reporting workflows with Google Sheets, Apps Script and AI tools, reducing manual reporting effort by 80%.",
         "Built and deployed 36 business systems across 6 departments using Google Sheets, Apps Script, Node.js, React and Python.",
         "Built the CEO Command Center: live department scoring, attention ranking and alerts with drill-downs for stock, receivables, orders, pipeline and margin.",
         "Built sales forecasting (Holt-Winters), RFM customer segmentation and an AI sales assistant on a PostgreSQL sales database.",
@@ -1015,6 +1021,45 @@ export const PORTFOLIO_DATA = {
         "Built a Tally vs dispatch reconciliation tool that flags quantity and amount mismatches by invoice."
       ],
       keyTools: ["Python", "Pandas", "SQL", "React", "TypeScript", "Node.js", "LangGraph", "n8n", "Google Apps Script", "Google Sheets API", "Render"]
+    },
+    {
+      period: "Jan 2025 – Jun 2025",
+      role: "Junior Data & Business Analyst (Contract)",
+      department: "Sales, Marketing & Operations",
+      organization: "Calyx Chemicals & Pharmaceuticals",
+      summary: "MIS and BI reporting for daily and weekly performance tracking.",
+      achievements: [
+        "Designed MIS and BI reports for daily and weekly performance tracking across Sales, Marketing and Operations.",
+        "Built dashboards giving stakeholders clear visibility into KPIs, performance trends and operational metrics.",
+        "Cleaned, validated and consolidated data from multiple sources to improve reporting accuracy.",
+        "Supported business planning and forecasting through structured data analysis and trend identification."
+      ],
+      keyTools: ["SQL", "Advanced Excel", "Power BI", "Python"]
+    },
+    {
+      period: "Aug 2024 – Dec 2024",
+      role: "Data Analyst Intern",
+      department: "Analytics",
+      organization: "Quantum Learnings",
+      summary: "Power BI dashboards, data cleaning and ad-hoc analysis.",
+      achievements: [
+        "Developed Power BI dashboards for KPI tracking and operational performance monitoring.",
+        "Performed data cleaning, transformation and validation to improve reporting accuracy.",
+        "Supported business teams with ad-hoc reporting, SQL queries and exploratory analysis."
+      ],
+      keyTools: ["Power BI", "SQL", "Excel"]
+    },
+    {
+      period: "Jan 2024 – Apr 2024",
+      role: "Data Analyst Intern",
+      department: "Software Development Cell",
+      organization: "Y. D. Patil Software Development Cell, Pune",
+      summary: "Dashboards and exploratory data analysis.",
+      achievements: [
+        "Developed dashboards using Power BI, Tableau and Advanced Excel to analyse operational and performance trends.",
+        "Used Python, Pandas and NumPy for data cleaning, preprocessing and exploratory data analysis."
+      ],
+      keyTools: ["Python", "Pandas", "Power BI", "Tableau"]
     }
   ] as ExperienceItem[]
 };

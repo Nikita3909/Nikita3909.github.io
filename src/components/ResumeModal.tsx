@@ -149,7 +149,7 @@ FLAGSHIP SYSTEMS BUILT (36 Total Across 6 Departments):
               <div className="text-right hidden sm:block p-3 rounded-xl bg-slate-950/70 border border-white/10 text-xs font-mono">
                 <p className="text-cyan-400 font-bold">36 Business Systems</p>
                 <p className="text-slate-400">6 Departments</p>
-                <p className="text-emerald-400">2 Years Experience</p>
+                <p className="text-emerald-400">MSc Data Science · CGPA 9.61</p>
               </div>
             </div>
 

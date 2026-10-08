@@ -20,7 +20,7 @@ export const ExperienceSection: React.FC = () => {
             Professional Experience Timeline
           </h2>
           <p className="mt-2 text-slate-400 text-sm max-w-xl text-balance">
-            2 years building AI agents, full-stack apps, ML models and automation that teams use every day.
+            From data analyst internships to building AI agents, full-stack apps and ML models that teams use every day.
           </p>
         </div>
 

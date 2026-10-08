@@ -19,7 +19,8 @@ export const AboutSection: React.FC = () => {
   const quickFacts = [
     { label: 'Role', value: profile.role, icon: <Briefcase className="w-4 h-4 text-cyan-400" /> },
     { label: 'Department', value: profile.department, icon: <Sparkles className="w-4 h-4 text-indigo-400" /> },
-    { label: 'Experience', value: `${profile.experienceYears} Years`, icon: <Clock className="w-4 h-4 text-emerald-400" /> },
+    { label: 'Education', value: profile.education, icon: <Sparkles className="w-4 h-4 text-cyan-300" /> },
+    { label: 'Experience', value: '1.5+ years + 2 internships', icon: <Clock className="w-4 h-4 text-emerald-400" /> },
     { label: 'Focus', value: profile.focus, icon: <Compass className="w-4 h-4 text-teal-300" /> },
     { label: 'Current domain', value: profile.industry, icon: <Building2 className="w-4 h-4 text-amber-400" /> },
     { label: 'Location', value: profile.location, icon: <MapPin className="w-4 h-4 text-rose-400" /> }
