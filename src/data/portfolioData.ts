@@ -2,7 +2,7 @@ export interface Project {
   id: string;
   title: string;
   department: string;
-  category: 'AI & ML' | 'Full-Stack Apps' | 'Dashboards & BI' | 'Automation';
+  category: 'Machine Learning' | 'AI Agents' | 'Analytics & BI' | 'Data Apps & Automation';
   problem: string;
   whatBuilt: string;
   result: string;
@@ -61,23 +61,23 @@ export const PORTFOLIO_DATA = {
     systemsCount: 36,
     departmentsCount: 6,
     toolsCount: "15+",
-    focus: "AI agents, full-stack apps, ML",
+    focus: "Data science, ML, AI agents",
     industry: "Manufacturing (in-house tech)",
     location: "Navi Mumbai, India",
     education: "MSc Data Science (CGPA 9.61)",
     email: "nikitagurav102@gmail.com",
     github: "https://github.com/Nikita3909",
     linkedin: "https://www.linkedin.com/in/nikita-gurav-a7b7732b9",
-    bio: "I'm Nikita Sham Gurav, an AI Data Science Analyst with an MSc in Data Science (CGPA 9.61) and 1.5+ years of professional experience building software end to end. I build my company's internal software on my own — AI agents with RAG and tool calling, full-stack apps in React, TypeScript and Node.js, ML forecasting and churn models, and automated data pipelines — and run them for sales, finance, production and management teams who use them every day. I'm now looking to bring this to an IT or product company.",
+    bio: "I'm Nikita Sham Gurav, an AI Data Science Analyst with an MSc in Data Science (CGPA 9.61) and 1.5+ years of professional experience. I work across the full data-to-AI cycle: SQL and Python analysis, forecasting and classification models validated properly, LLM agents with RAG and tool calling, and the dashboards and automations that put those results in front of decision-makers. Everything I build is used daily by sales, finance, production and management teams. I'm looking for AI Engineer, Data Scientist, Data Analyst or ML Engineer roles.",
     heroBadge: "AI Data Science Analyst",
-    heroHeading: "Hi, I'm Nikita Gurav. I build AI agents, full-stack apps & ML models.",
-    heroSubtext: "I design, code and ship complete products — React front ends, Node.js and Python APIs, ML models and LLM agents — and run them in production for real users every day.",
+    heroHeading: "Hi, I'm Nikita Gurav. I turn data into insights, ML models & AI agents.",
+    heroSubtext: "I analyse data with Python and SQL, build machine-learning and forecasting models, and create LLM agents with RAG — then deploy them as dashboards and tools that teams use every day.",
     rotatingRoles: [
-      "AI Agents",
-      "Full-Stack Apps",
       "Machine Learning",
-      "Data Pipelines",
-      "Automation"
+      "AI Agents & RAG",
+      "Data Analysis",
+      "Forecasting",
+      "Dashboards & BI"
     ]
   },
 
@@ -114,78 +114,10 @@ export const PORTFOLIO_DATA = {
 
   featuredProjects: [
     {
-      id: "procurement-ai-agent",
-      title: "Procurement AI Agent",
-      department: "AI & Data Science",
-      category: "AI & ML",
-      problem: "Procurement data — stock, targets, transit, import POs, payments and landed cost — was spread across many sheets, and answering simple questions took manual digging.",
-      whatBuilt: "A full-stack procurement platform with an AI agent. Dashboards cover monthly planning, import purchase management, payments, landed cost, vendor comparison, inward QC and final inspection. A LangGraph agent answers questions using tools, local RAG search and a procurement knowledge graph.",
-      result: "The team can plan purchases, track imports and payments, and ask the agent questions in plain English instead of searching sheets.",
-      tech: ["React", "TypeScript", "Node.js", "LangGraph", "RAG", "Recharts", "Google Sheets API", "Vitest"],
-      image: "/images/procurement-agent.png",
-      demoUrl: "/demos/procurement-agent/",
-      chartType: "capacity",
-      highlights: [
-        "LangGraph agent (agent → tools → agent loop) with data-health checks and pending-order / vendor-rate tools",
-        "Local RAG with ONNX embeddings (no paid embedding API) and semantic search",
-        "Procurement knowledge graph built only from real rows — path, root-cause and impact queries",
-        "Landed cost, supplier performance, SKU cost automation and PO creation with PDF output"
-      ],
-      metrics: [
-        { label: "Modules", value: "8+", trend: "Planning to inspection" },
-        { label: "AI stack", value: "LangGraph", trend: "Tools + RAG + graph" },
-        { label: "Test suites", value: "8", trend: "Vitest" }
-      ],
-      deliverables: [
-        "React + TypeScript dashboard",
-        "Express API with Google Sheets integration",
-        "AI agent with RAG and knowledge graph"
-      ],
-      liveFeatures: [
-        "Month-wise plan vs stock vs transit",
-        "Import PO, payment and landed cost views",
-        "Chat agent and command palette"
-      ]
-    },
-    {
-      id: "full-stack-crm",
-      title: "Full-Stack Sales CRM",
-      department: "Sales",
-      category: "Full-Stack Apps",
-      problem: "Orders, dispatch, follow-ups, grievances and leads were handled in separate sheets and forms with no role-based access.",
-      whatBuilt: "A full CRM with Google login and roles (admin, CRM, dispatch): dashboard, order entry with auto order IDs and stock checks, dispatch with photo upload, SCOT tracker, reorder risk prediction, pipeline, grievances, WhatsApp, reports and an AI assistant with lead generation.",
-      result: "Sales, CRM and dispatch teams work from one system, each seeing only what their role needs.",
-      tech: ["React", "Vite", "Node.js", "Express", "Google Sheets API", "Google OAuth", "OpenAI / OpenRouter", "node-cron"],
-      image: "/images/full-crm.png",
-      demoUrl: "/demos/crm/",
-      chartType: "crm",
-      highlights: [
-        "Role-based access with Google OAuth login",
-        "New order form that auto-generates order IDs and triggers the stock engine",
-        "Reorder risk tracker predicting which customers are due to reorder (High / Medium / Low / New)",
-        "Below-benchmark price and delayed-order views with PDF and Excel export"
-      ],
-      metrics: [
-        { label: "Pages", value: "24", trend: "React app" },
-        { label: "User roles", value: "3", trend: "Admin · CRM · Dispatch" },
-        { label: "AI", value: "Assistant", trend: "Plus lead generator" }
-      ],
-      deliverables: [
-        "React + Vite frontend",
-        "Express backend with scheduled jobs",
-        "Google Sheets data layer"
-      ],
-      liveFeatures: [
-        "Order, dispatch and payment tracking",
-        "SCOT and reorder trackers",
-        "AI assistant and lead generator"
-      ]
-    },
-    {
       id: "ml-demand-forecasting",
       title: "Demand Forecasting: 7 Models Compared",
       department: "Machine Learning",
-      category: "AI & ML",
+      category: "Machine Learning",
       problem: "Production and purchase planning needs reliable demand forecasts weeks ahead, and it is not obvious which forecasting method works best.",
       whatBuilt: "An 8-week-ahead weekly demand forecast for 10 products, comparing naive baselines, Holt-Winters, ridge regression, random forest and gradient boosting on the same rolling-origin backtest (4 folds), with leakage-safe lag features and automated leakage tests.",
       result: "Random forest reached 12.0% WAPE — 17.5% lower error than the seasonal-naive baseline (~100 fewer cartons of error per week) — with Holt-Winters a close second at 12.7%.",
@@ -216,10 +148,44 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
+      id: "procurement-ai-agent",
+      title: "Procurement AI Agent",
+      department: "AI & Data Science",
+      category: "AI Agents",
+      problem: "Procurement data — stock, targets, transit, import POs, payments and landed cost — was spread across many sheets, and answering simple questions took manual digging.",
+      whatBuilt: "A full-stack procurement platform with an AI agent. Dashboards cover monthly planning, import purchase management, payments, landed cost, vendor comparison, inward QC and final inspection. A LangGraph agent answers questions using tools, local RAG search and a procurement knowledge graph.",
+      result: "The team can plan purchases, track imports and payments, and ask the agent questions in plain English instead of searching sheets.",
+      tech: ["React", "TypeScript", "Node.js", "LangGraph", "RAG", "Recharts", "Google Sheets API", "Vitest"],
+      image: "/images/procurement-agent.png",
+      demoUrl: "/demos/procurement-agent/",
+      chartType: "capacity",
+      highlights: [
+        "LangGraph agent (agent → tools → agent loop) with data-health checks and pending-order / vendor-rate tools",
+        "Local RAG with ONNX embeddings (no paid embedding API) and semantic search",
+        "Procurement knowledge graph built only from real rows — path, root-cause and impact queries",
+        "Landed cost, supplier performance, SKU cost automation and PO creation with PDF output"
+      ],
+      metrics: [
+        { label: "Modules", value: "8+", trend: "Planning to inspection" },
+        { label: "AI stack", value: "LangGraph", trend: "Tools + RAG + graph" },
+        { label: "Test suites", value: "8", trend: "Vitest" }
+      ],
+      deliverables: [
+        "React + TypeScript dashboard",
+        "Express API with Google Sheets integration",
+        "AI agent with RAG and knowledge graph"
+      ],
+      liveFeatures: [
+        "Month-wise plan vs stock vs transit",
+        "Import PO, payment and landed cost views",
+        "Chat agent and command palette"
+      ]
+    },
+    {
       id: "ml-customer-churn",
       title: "B2B Customer Churn Prediction + RFM",
       department: "Machine Learning",
-      category: "AI & ML",
+      category: "Machine Learning",
       problem: "Sales teams can only call a limited number of customers, so they need to know which active customers are about to stop ordering.",
       whatBuilt: "A churn model that predicts which active customers will place no order in the next 90 days, trained on monthly snapshots with a time-based split, compared against a 'no order in 60 days' business rule and classic RFM segmentation.",
       result: "Calling the riskiest 20% of customers reaches 91% of churners (rule: 80%), covering 84% of revenue at risk. RFM's 'At Risk' segment had 0% churn — the model catches it by comparing each customer to their own ordering rhythm.",
@@ -250,78 +216,10 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "export-lead-tracker",
-      title: "Export Lead Tracker",
-      department: "Sales / Export",
-      category: "Full-Stack Apps",
-      problem: "Export enquiries and outbound outreach to overseas buyers were followed up inconsistently, and there was no view of which step each lead was on or whether follow-ups were late.",
-      whatBuilt: "A lead tracking system for export sales with two flows — inbound ('Come to Us': enquiry → email within 1 day → follow-ups every 7 days) and outbound ('We Reached Out': introduction → 4 follow-ups) — leading to Quotation → PI → PO. It has a dashboard, pipeline board, lead table, a 9 AM action queue, 1-month review of closed leads and planned-vs-actual tracking for every step. The same React app runs live on Google Apps Script with a 14-tab Google Sheet backend.",
-      result: "Every export lead has a clear next step and due date, late follow-ups are visible per person, and won value is tracked from quotation to PO.",
-      tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Google Apps Script", "Google Sheets"],
-      image: "/images/export-leads.png",
-      demoUrl: "/demos/export-leads/",
-      chartType: "crm",
-      highlights: [
-        "Two lead flows with automatic planned dates (1-day email, 7-day follow-up cadence)",
-        "Planned vs actual for every step, with on-time %, average delay and overdue per person",
-        "Daily 9 AM job that moves steps to Due Today / Overdue and rebuilds the step tabs",
-        "1-month review: reopen a closed lead or close it permanently, with a required remark"
-      ],
-      metrics: [
-        { label: "Lead flows", value: "2", trend: "Inbound · outbound" },
-        { label: "Sheet tabs", value: "14", trend: "Written by the app" },
-        { label: "Pipeline", value: "Quote → PI → PO", trend: "Won value tracked" }
-      ],
-      deliverables: [
-        "React app (one build for live and demo)",
-        "Apps Script backend with daily trigger",
-        "Google Sheet with step, review, lost and activity tabs"
-      ],
-      liveFeatures: [
-        "Dashboard and pipeline board",
-        "Demo date buttons (+1 day, +7 days, +30 days) to see follow-ups become due",
-        "Capture a new lead and move it through the steps"
-      ]
-    },
-    {
-      id: "ai-marketing-automation",
-      title: "AI Marketing Automation (n8n)",
-      department: "AI Automation",
-      category: "Automation",
-      problem: "Planning, writing, designing and posting social media content every day took a lot of manual time, and results were not tracked.",
-      whatBuilt: "A 163-node n8n workflow that works like an AI marketing team: an AI strategist plans the week, an AI copywriter writes posts, images are generated and checked by an AI art director, videos are made with Google Veo, and approved posts are published to LinkedIn, Instagram, Facebook and WhatsApp — with a web dashboard for approvals.",
-      result: "Content goes from plan to published with one approval click, and performance, AI cost and errors are reported automatically.",
-      tech: ["n8n", "OpenAI", "Google Gemini / Veo", "Google Sheets & Drive", "Meta Graph API", "LinkedIn API", "WhatsApp Cloud API"],
-      image: "/images/marketing-automation.png",
-      demoUrl: "/demos/n8n-workflows/",
-      chartType: "sales",
-      highlights: [
-        "Multi-agent setup: strategist, reviewer, copywriter and art-director checks",
-        "Approval dashboard served from n8n webhooks (approve, edit, regenerate, skip, upload own image)",
-        "Auto-publishing to LinkedIn, Instagram, Facebook and WhatsApp campaign templates",
-        "Nightly performance tracking, AI budget alerts, error emails and a weekly report"
-      ],
-      metrics: [
-        { label: "Workflow nodes", value: "163", trend: "n8n" },
-        { label: "Channels", value: "4", trend: "LinkedIn · IG · FB · WhatsApp" },
-        { label: "AI agents", value: "3", trend: "Plan · review · write" }
-      ],
-      deliverables: [
-        "n8n workflow with 6 scheduled and webhook entry points",
-        "Approval dashboard",
-        "Google Sheets content calendar and usage log"
-      ],
-      liveFeatures: [
-        "Interactive workflow diagram",
-        "Node types and connections",
-        "Step-by-step explanation"
-      ]
-    },
-    {
       id: "ceo-command-center",
       title: "CEO Command Center",
       department: "Management",
-      category: "Dashboards & BI",
+      category: "Analytics & BI",
       problem: "The CEO had no single view of how each department was doing. Numbers were spread across many Google Sheets.",
       whatBuilt: "A live web dashboard that reads 8 Google Sheets and gives each department a penalty score (0 = perfect, −100 = worst) with a reason line, an overall health score, an attention ranking and automatic alerts. Drill-down pages cover stock, receivables ageing, pending orders, sales pipeline and gross margin.",
       result: "Management checks business health every day from one screen.",
@@ -352,44 +250,43 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "pack-design-studio",
-      title: "Packaging Design Studio (3D)",
-      department: "Design / Production",
-      category: "Full-Stack Apps",
-      problem: "Every packaging box, wrapper and export carton needed manual design work and separate calculations for printing and loading.",
-      whatBuilt: "A browser-based design tool: pick a product, size the box, change text and colours, see a live 3D mockup with fold animation, and download print-ready PDF, SVG, DXF die-lines and images. Includes a wrapping-paper designer and an export container planner with 3D loading view.",
-      result: "Packaging designs, printer files and loading plans are produced in minutes without a designer.",
-      tech: ["JavaScript", "Three.js", "jsPDF", "JSZip", "SVG / DXF", "HTML/CSS"],
-      image: "/images/pack-studio.png",
-      demoUrl: "/demos/pack-studio/",
-      chartType: "capacity",
+      id: "sales-intelligence",
+      title: "Sales Intelligence & Forecasting",
+      department: "Data Science",
+      category: "Machine Learning",
+      problem: "Sales data was only used for basic monthly reports. There was no view of trends, expected sales or which customers mattered most.",
+      whatBuilt: "A Python analytics project on a PostgreSQL sales database: trend analysis (EDA), a 3-month revenue forecast, RFM customer segmentation and an AI assistant that answers sales questions in plain English.",
+      result: "The team can see sales trends, expected revenue for the next 3 months and which customers are VIP or at risk.",
+      tech: ["Python", "Pandas", "PostgreSQL", "Statsmodels", "Plotly", "Streamlit", "Claude API"],
+      image: "/images/sales-analytics.png",
+      chartType: "forecast",
       highlights: [
-        "Live 3D box mockup with fold and open-lid animation",
-        "Print file at actual size (PDF), artwork + cut lines (SVG), die-maker files (DXF)",
-        "Costing facts: flat sheet size, board grams per box, boxes per printing sheet",
-        "Export planner: how many cartons fit in a container, shown in 3D"
+        "Revenue forecast for the next 3 months using Holt-Winters exponential smoothing",
+        "Model checked on historical data with MAE and MAPE",
+        "RFM (Recency, Frequency, Monetary) segmentation into groups such as VIP and At Risk",
+        "AI sales assistant that turns plain-English questions into SQL and answers from live data"
       ],
       metrics: [
-        { label: "Tools", value: "3", trend: "Box · wrapper · container" },
-        { label: "Export formats", value: "6", trend: "PNG · PDF · SVG · DXF · ZIP · JSON" },
-        { label: "Server", value: "None", trend: "Runs in the browser" }
+        { label: "Forecast horizon", value: "3 months", trend: "Holt-Winters" },
+        { label: "Model check", value: "MAE + MAPE", trend: "On historical data" },
+        { label: "Segmentation", value: "RFM", trend: "Recency · Frequency · Monetary" }
       ],
       deliverables: [
-        "Packaging designer with 3D preview",
-        "Wrapping paper designer",
-        "Export container planner"
+        "Streamlit web dashboard",
+        "Python scripts for EDA, forecasting and segmentation",
+        "AI assistant connected to the sales database"
       ],
       liveFeatures: [
-        "Pick a product and size a box",
-        "Rotate the 3D mockup",
-        "Download print files"
+        "Monthly sales trend charts",
+        "Customer segment distribution and top customers per segment",
+        "Chat-style questions over sales data"
       ]
     },
     {
       id: "whatsapp-lead-agent",
       title: "WhatsApp AI Lead Qualification Agent (n8n)",
       department: "AI Automation",
-      category: "Automation",
+      category: "AI Agents",
       problem: "WhatsApp enquiries came in at all hours and new leads were not answered or qualified quickly.",
       whatBuilt: "A 42-node n8n AI agent on WhatsApp that understands text, voice notes (transcription) and images, separates existing customers from new leads, qualifies leads with chat memory, updates the CRM sheet and books calendar meetings — with a human takeover switch.",
       result: "Every enquiry gets an instant reply, leads are qualified and logged, and the sales team can take over any chat.",
@@ -420,10 +317,111 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
+      id: "ai-marketing-automation",
+      title: "AI Marketing Automation (n8n)",
+      department: "AI Automation",
+      category: "AI Agents",
+      problem: "Planning, writing, designing and posting social media content every day took a lot of manual time, and results were not tracked.",
+      whatBuilt: "A 163-node n8n workflow that works like an AI marketing team: an AI strategist plans the week, an AI copywriter writes posts, images are generated and checked by an AI art director, videos are made with Google Veo, and approved posts are published to LinkedIn, Instagram, Facebook and WhatsApp — with a web dashboard for approvals.",
+      result: "Content goes from plan to published with one approval click, and performance, AI cost and errors are reported automatically.",
+      tech: ["n8n", "OpenAI", "Google Gemini / Veo", "Google Sheets & Drive", "Meta Graph API", "LinkedIn API", "WhatsApp Cloud API"],
+      image: "/images/marketing-automation.png",
+      demoUrl: "/demos/n8n-workflows/",
+      chartType: "sales",
+      highlights: [
+        "Multi-agent setup: strategist, reviewer, copywriter and art-director checks",
+        "Approval dashboard served from n8n webhooks (approve, edit, regenerate, skip, upload own image)",
+        "Auto-publishing to LinkedIn, Instagram, Facebook and WhatsApp campaign templates",
+        "Nightly performance tracking, AI budget alerts, error emails and a weekly report"
+      ],
+      metrics: [
+        { label: "Workflow nodes", value: "163", trend: "n8n" },
+        { label: "Channels", value: "4", trend: "LinkedIn · IG · FB · WhatsApp" },
+        { label: "AI agents", value: "3", trend: "Plan · review · write" }
+      ],
+      deliverables: [
+        "n8n workflow with 6 scheduled and webhook entry points",
+        "Approval dashboard",
+        "Google Sheets content calendar and usage log"
+      ],
+      liveFeatures: [
+        "Interactive workflow diagram",
+        "Node types and connections",
+        "Step-by-step explanation"
+      ]
+    },
+    {
+      id: "sales-reconciliation",
+      title: "Sales Reconciliation (Tally vs Dispatch)",
+      department: "Data Science",
+      category: "Analytics & BI",
+      problem: "Invoices in Tally and the dispatch records did not always match, and checking them was manual.",
+      whatBuilt: "A Python tool that reads Tally sales exports (.xlsx), pulls dispatch data live from Google Sheets, matches by invoice number and flags quantity and amount mismatches.",
+      result: "Mismatched and missing invoices are listed automatically instead of being checked line by line.",
+      tech: ["Python", "openpyxl", "SQLite", "Google Sheets API", "JavaScript"],
+      image: "/images/sales-reconciliation.png",
+      chartType: "reconcile",
+      highlights: [
+        "Tally Excel parser that tolerates small header name differences",
+        "Invoice matching with ₹1 / 0.01 unit rounding tolerance",
+        "Statuses: Matched, Qty Mismatch, Amount Mismatch, Missing in Dispatch, Missing in Tally",
+        "Uploads accumulate month by month in a local database"
+      ],
+      metrics: [
+        { label: "Match statuses", value: "6", trend: "Per invoice" },
+        { label: "Tolerance", value: "₹1", trend: "Rounding" },
+        { label: "Dispatch data", value: "Live", trend: "Google Sheets" }
+      ],
+      deliverables: [
+        "Python backend with SQLite storage",
+        "Web frontend with Tally file upload",
+        "Product-level reconciliation view"
+      ],
+      liveFeatures: [
+        "Upload Tally file button",
+        "Refresh dispatch data button",
+        "Mismatch list by invoice"
+      ]
+    },
+    {
+      id: "full-stack-crm",
+      title: "Full-Stack Sales CRM",
+      department: "Sales",
+      category: "Data Apps & Automation",
+      problem: "Orders, dispatch, follow-ups, grievances and leads were handled in separate sheets and forms with no role-based access.",
+      whatBuilt: "A full CRM with Google login and roles (admin, CRM, dispatch): dashboard, order entry with auto order IDs and stock checks, dispatch with photo upload, SCOT tracker, reorder risk prediction, pipeline, grievances, WhatsApp, reports and an AI assistant with lead generation.",
+      result: "Sales, CRM and dispatch teams work from one system, each seeing only what their role needs.",
+      tech: ["React", "Vite", "Node.js", "Express", "Google Sheets API", "Google OAuth", "OpenAI / OpenRouter", "node-cron"],
+      image: "/images/full-crm.png",
+      demoUrl: "/demos/crm/",
+      chartType: "crm",
+      highlights: [
+        "Role-based access with Google OAuth login",
+        "New order form that auto-generates order IDs and triggers the stock engine",
+        "Reorder risk tracker predicting which customers are due to reorder (High / Medium / Low / New)",
+        "Below-benchmark price and delayed-order views with PDF and Excel export"
+      ],
+      metrics: [
+        { label: "Pages", value: "24", trend: "React app" },
+        { label: "User roles", value: "3", trend: "Admin · CRM · Dispatch" },
+        { label: "AI", value: "Assistant", trend: "Plus lead generator" }
+      ],
+      deliverables: [
+        "React + Vite frontend",
+        "Express backend with scheduled jobs",
+        "Google Sheets data layer"
+      ],
+      liveFeatures: [
+        "Order, dispatch and payment tracking",
+        "SCOT and reorder trackers",
+        "AI assistant and lead generator"
+      ]
+    },
+    {
       id: "tally-sync",
       title: "Tally → Google Sheets Auto Sync",
       department: "Finance / Automation",
-      category: "Automation",
+      category: "Data Apps & Automation",
       problem: "Finance numbers lived only in Tally, so management dashboards needed someone to export and paste reports by hand, and nobody knew if the data was out of date.",
       whatBuilt: "An Apps Script automation that reads 5 Tally exports (Trial Balance, Day Book, Receivables, Payables, Stock Summary) from a Drive folder and loads each into its own Google Sheets tab — checking hourly for new files, doing a full sync every night, and emailing an alert if a file is missing, older than 24 hours or fails. It strips Tally's title rows automatically and keeps a sync log. A finance dashboard reads the synced tabs.",
       result: "The finance dashboard stays up to date without copy-pasting, and stale or missing Tally files are flagged automatically.",
@@ -454,43 +452,10 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "sales-intelligence",
-      title: "Sales Intelligence & Forecasting",
-      department: "Data Science",
-      category: "AI & ML",
-      problem: "Sales data was only used for basic monthly reports. There was no view of trends, expected sales or which customers mattered most.",
-      whatBuilt: "A Python analytics project on a PostgreSQL sales database: trend analysis (EDA), a 3-month revenue forecast, RFM customer segmentation and an AI assistant that answers sales questions in plain English.",
-      result: "The team can see sales trends, expected revenue for the next 3 months and which customers are VIP or at risk.",
-      tech: ["Python", "Pandas", "PostgreSQL", "Statsmodels", "Plotly", "Streamlit", "Claude API"],
-      image: "/images/sales-analytics.png",
-      chartType: "forecast",
-      highlights: [
-        "Revenue forecast for the next 3 months using Holt-Winters exponential smoothing",
-        "Model checked on historical data with MAE and MAPE",
-        "RFM (Recency, Frequency, Monetary) segmentation into groups such as VIP and At Risk",
-        "AI sales assistant that turns plain-English questions into SQL and answers from live data"
-      ],
-      metrics: [
-        { label: "Forecast horizon", value: "3 months", trend: "Holt-Winters" },
-        { label: "Model check", value: "MAE + MAPE", trend: "On historical data" },
-        { label: "Segmentation", value: "RFM", trend: "Recency · Frequency · Monetary" }
-      ],
-      deliverables: [
-        "Streamlit web dashboard",
-        "Python scripts for EDA, forecasting and segmentation",
-        "AI assistant connected to the sales database"
-      ],
-      liveFeatures: [
-        "Monthly sales trend charts",
-        "Customer segment distribution and top customers per segment",
-        "Chat-style questions over sales data"
-      ]
-    },
-    {
       id: "production-pulse",
       title: "Production Pulse",
       department: "Production",
-      category: "Dashboards & BI",
+      category: "Analytics & BI",
       problem: "Daily production plans and actual output were recorded separately, so shortfalls were found late.",
       whatBuilt: "A React + TypeScript production dashboard on live Google Sheets data: daily plan entry, plan vs actual, department status, machine details, labour panel and shift handover.",
       result: "Supervisors and management can compare plan vs actual for each department on the same day.",
@@ -520,43 +485,77 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "sales-reconciliation",
-      title: "Sales Reconciliation (Tally vs Dispatch)",
-      department: "Data Science",
-      category: "Automation",
-      problem: "Invoices in Tally and the dispatch records did not always match, and checking them was manual.",
-      whatBuilt: "A Python tool that reads Tally sales exports (.xlsx), pulls dispatch data live from Google Sheets, matches by invoice number and flags quantity and amount mismatches.",
-      result: "Mismatched and missing invoices are listed automatically instead of being checked line by line.",
-      tech: ["Python", "openpyxl", "SQLite", "Google Sheets API", "JavaScript"],
-      image: "/images/sales-reconciliation.png",
-      chartType: "reconcile",
+      id: "export-lead-tracker",
+      title: "Export Lead Tracker",
+      department: "Sales / Export",
+      category: "Data Apps & Automation",
+      problem: "Export enquiries and outbound outreach to overseas buyers were followed up inconsistently, and there was no view of which step each lead was on or whether follow-ups were late.",
+      whatBuilt: "A lead tracking system for export sales with two flows — inbound ('Come to Us': enquiry → email within 1 day → follow-ups every 7 days) and outbound ('We Reached Out': introduction → 4 follow-ups) — leading to Quotation → PI → PO. It has a dashboard, pipeline board, lead table, a 9 AM action queue, 1-month review of closed leads and planned-vs-actual tracking for every step. The same React app runs live on Google Apps Script with a 14-tab Google Sheet backend.",
+      result: "Every export lead has a clear next step and due date, late follow-ups are visible per person, and won value is tracked from quotation to PO.",
+      tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Google Apps Script", "Google Sheets"],
+      image: "/images/export-leads.png",
+      demoUrl: "/demos/export-leads/",
+      chartType: "crm",
       highlights: [
-        "Tally Excel parser that tolerates small header name differences",
-        "Invoice matching with ₹1 / 0.01 unit rounding tolerance",
-        "Statuses: Matched, Qty Mismatch, Amount Mismatch, Missing in Dispatch, Missing in Tally",
-        "Uploads accumulate month by month in a local database"
+        "Two lead flows with automatic planned dates (1-day email, 7-day follow-up cadence)",
+        "Planned vs actual for every step, with on-time %, average delay and overdue per person",
+        "Daily 9 AM job that moves steps to Due Today / Overdue and rebuilds the step tabs",
+        "1-month review: reopen a closed lead or close it permanently, with a required remark"
       ],
       metrics: [
-        { label: "Match statuses", value: "6", trend: "Per invoice" },
-        { label: "Tolerance", value: "₹1", trend: "Rounding" },
-        { label: "Dispatch data", value: "Live", trend: "Google Sheets" }
+        { label: "Lead flows", value: "2", trend: "Inbound · outbound" },
+        { label: "Sheet tabs", value: "14", trend: "Written by the app" },
+        { label: "Pipeline", value: "Quote → PI → PO", trend: "Won value tracked" }
       ],
       deliverables: [
-        "Python backend with SQLite storage",
-        "Web frontend with Tally file upload",
-        "Product-level reconciliation view"
+        "React app (one build for live and demo)",
+        "Apps Script backend with daily trigger",
+        "Google Sheet with step, review, lost and activity tabs"
       ],
       liveFeatures: [
-        "Upload Tally file button",
-        "Refresh dispatch data button",
-        "Mismatch list by invoice"
+        "Dashboard and pipeline board",
+        "Demo date buttons (+1 day, +7 days, +30 days) to see follow-ups become due",
+        "Capture a new lead and move it through the steps"
+      ]
+    },
+    {
+      id: "factory-capacity-assessment",
+      title: "Factory Capacity Assessment",
+      department: "Data Science",
+      category: "Analytics & BI",
+      problem: "Production planning did not have a clear measure of how much each machine and line can actually produce.",
+      whatBuilt: "A 12-step capacity mapping system that uses production, machine and downtime data stored in Google Sheets, with a Python calculation engine and exports.",
+      result: "Capacity is calculated from recorded data, giving planning a measured basis.",
+      tech: ["Python", "FastAPI", "Google Apps Script", "Google Sheets API"],
+      image: "/images/capacity-assessment.png",
+      chartType: "capacity",
+      highlights: [
+        "12-step factory capacity mapping",
+        "Production, machine and downtime data kept in Google Sheets (no separate database)",
+        "Apps Script setup and data fetch from the main production sheet",
+        "Export of capacity results"
+      ],
+      metrics: [
+        { label: "Method", value: "12 steps", trend: "Capacity mapping" },
+        { label: "Backend", value: "FastAPI", trend: "Python" },
+        { label: "Storage", value: "Sheets", trend: "No local DB" }
+      ],
+      deliverables: [
+        "FastAPI backend with calculator and exporter",
+        "Sheet setup scripts",
+        "Web front end"
+      ],
+      liveFeatures: [
+        "Machine and downtime inputs",
+        "Capacity calculation results",
+        "Export"
       ]
     },
     {
       id: "o2d-tracking-system",
       title: "O2D Tracking System",
       department: "Operations",
-      category: "Full-Stack Apps",
+      category: "Data Apps & Automation",
       problem: "Orders moved through many steps across several sheets, and it was hard to see where each order was.",
       whatBuilt: "An order-to-delivery tracker with its own database. It reads new orders and invoices from Google Sheets (read-only) and tracks every stage with planned dates, plus Apps Script sync agents that keep 4 FMS sheets up to date.",
       result: "Each order's stage, from confirmation to payment follow-up, is visible in one place.",
@@ -586,10 +585,44 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
+      id: "pack-design-studio",
+      title: "Packaging Design Studio (3D)",
+      department: "Design / Production",
+      category: "Data Apps & Automation",
+      problem: "Every packaging box, wrapper and export carton needed manual design work and separate calculations for printing and loading.",
+      whatBuilt: "A browser-based design tool: pick a product, size the box, change text and colours, see a live 3D mockup with fold animation, and download print-ready PDF, SVG, DXF die-lines and images. Includes a wrapping-paper designer and an export container planner with 3D loading view.",
+      result: "Packaging designs, printer files and loading plans are produced in minutes without a designer.",
+      tech: ["JavaScript", "Three.js", "jsPDF", "JSZip", "SVG / DXF", "HTML/CSS"],
+      image: "/images/pack-studio.png",
+      demoUrl: "/demos/pack-studio/",
+      chartType: "capacity",
+      highlights: [
+        "Live 3D box mockup with fold and open-lid animation",
+        "Print file at actual size (PDF), artwork + cut lines (SVG), die-maker files (DXF)",
+        "Costing facts: flat sheet size, board grams per box, boxes per printing sheet",
+        "Export planner: how many cartons fit in a container, shown in 3D"
+      ],
+      metrics: [
+        { label: "Tools", value: "3", trend: "Box · wrapper · container" },
+        { label: "Export formats", value: "6", trend: "PNG · PDF · SVG · DXF · ZIP · JSON" },
+        { label: "Server", value: "None", trend: "Runs in the browser" }
+      ],
+      deliverables: [
+        "Packaging designer with 3D preview",
+        "Wrapping paper designer",
+        "Export container planner"
+      ],
+      liveFeatures: [
+        "Pick a product and size a box",
+        "Rotate the 3D mockup",
+        "Download print files"
+      ]
+    },
+    {
       id: "sales-management-suite",
       title: "Sales Management Suite",
       department: "Sales",
-      category: "Full-Stack Apps",
+      category: "Data Apps & Automation",
       problem: "Leads, client calls, sales rep performance and profit were tracked in separate sheets with no common flow.",
       whatBuilt: "A set of standalone web apps: Sales FMS lead pipeline, S.C.O.T. client call scheduler, Sales Rep MIS + MeCA weekly performance dashboard, and a Gross Profit dashboard.",
       result: "One structured flow from lead to profit for the sales team.",
@@ -622,7 +655,7 @@ export const PORTFOLIO_DATA = {
       id: "sales-crm-lead-trackers",
       title: "Sales CRM & Lead Trackers",
       department: "Sales",
-      category: "Full-Stack Apps",
+      category: "Data Apps & Automation",
       problem: "Follow-ups with new enquiries and old customers were being missed.",
       whatBuilt: "CRM apps that move each lead through Follow-up 1, 2, 3 to Converted or Lost, an Enquiry Capture Tracker, an Old Customer Lead Tracker and an NBD tracker for incoming vs outgoing new business.",
       result: "Every lead has a clear stage and next follow-up.",
@@ -655,7 +688,7 @@ export const PORTFOLIO_DATA = {
       id: "admin-task-tracker-fms",
       title: "Admin Task Tracker & FMS",
       department: "Operations",
-      category: "Full-Stack Apps",
+      category: "Data Apps & Automation",
       problem: "Daily tasks across departments had no clear tracking of deadlines and completion.",
       whatBuilt: "An Admin Task Tracker (entry form + dashboard), a daily task FMS tracker with per-employee reports, and a React FMS tracker showing overdue, today's and upcoming tasks.",
       result: "Managers can see what is pending and who is behind.",
@@ -682,39 +715,6 @@ export const PORTFOLIO_DATA = {
         "Task list by status",
         "Employee report view",
         "Filters by FMS and member"
-      ]
-    },
-    {
-      id: "factory-capacity-assessment",
-      title: "Factory Capacity Assessment",
-      department: "Data Science",
-      category: "Dashboards & BI",
-      problem: "Production planning did not have a clear measure of how much each machine and line can actually produce.",
-      whatBuilt: "A 12-step capacity mapping system that uses production, machine and downtime data stored in Google Sheets, with a Python calculation engine and exports.",
-      result: "Capacity is calculated from recorded data, giving planning a measured basis.",
-      tech: ["Python", "FastAPI", "Google Apps Script", "Google Sheets API"],
-      image: "/images/capacity-assessment.png",
-      chartType: "capacity",
-      highlights: [
-        "12-step factory capacity mapping",
-        "Production, machine and downtime data kept in Google Sheets (no separate database)",
-        "Apps Script setup and data fetch from the main production sheet",
-        "Export of capacity results"
-      ],
-      metrics: [
-        { label: "Method", value: "12 steps", trend: "Capacity mapping" },
-        { label: "Backend", value: "FastAPI", trend: "Python" },
-        { label: "Storage", value: "Sheets", trend: "No local DB" }
-      ],
-      deliverables: [
-        "FastAPI backend with calculator and exporter",
-        "Sheet setup scripts",
-        "Web front end"
-      ],
-      liveFeatures: [
-        "Machine and downtime inputs",
-        "Capacity calculation results",
-        "Export"
       ]
     }
   ] as Project[],
@@ -954,51 +954,49 @@ export const PORTFOLIO_DATA = {
 
   skillsData: [
     {
-      title: "AI & Machine Learning",
-      description: "LLM agents, retrieval, forecasting and classification — validated properly.",
+      title: "Machine Learning & AI",
+      description: "Models and agents, validated properly.",
       skills: [
         { name: "Python", level: 0, featured: true },
-        { name: "Pandas & NumPy", level: 0, featured: true },
         { name: "scikit-learn", level: 0, featured: true },
         { name: "statsmodels (time series)", level: 0, featured: true },
+        { name: "Forecasting", level: 0, featured: true },
+        { name: "Classification & churn models", level: 0, featured: true },
+        { name: "Backtesting & leakage tests", level: 0, featured: true },
         { name: "LangGraph agents", level: 0, featured: true },
         { name: "RAG & embeddings", level: 0, featured: true },
-        { name: "LLM APIs (OpenAI, Claude, OpenRouter)", level: 0, featured: true },
-        { name: "Backtesting & leakage tests", level: 0, featured: true }
+        { name: "LLM APIs & prompt engineering", level: 0, featured: true }
       ]
     },
     {
-      title: "Software Engineering",
-      description: "Full-stack web apps from UI to API, written and shipped end to end.",
-      skills: [
-        { name: "TypeScript", level: 0, featured: true },
-        { name: "JavaScript", level: 0, featured: true },
-        { name: "React", level: 0, featured: true },
-        { name: "Node.js & Express", level: 0, featured: true },
-        { name: "FastAPI", level: 0, featured: true },
-        { name: "REST APIs", level: 0, featured: true },
-        { name: "Tailwind CSS", level: 0, featured: true },
-        { name: "Three.js", level: 0, featured: true },
-        { name: "Vitest", level: 0, featured: true },
-        { name: "Git & GitHub", level: 0, featured: true }
-      ]
-    },
-    {
-      title: "Data, Cloud & Automation",
-      description: "Databases, pipelines, scheduled jobs and hosting.",
+      title: "Data Analysis & BI",
+      description: "From raw data to decisions.",
       skills: [
         { name: "SQL & PostgreSQL", level: 0, featured: true },
-        { name: "SQLite", level: 0, featured: true },
-        { name: "MongoDB", level: 0, featured: true },
-        { name: "Google Sheets API", level: 0, featured: true },
-        { name: "Google Apps Script", level: 0, featured: true },
-        { name: "n8n workflows", level: 0, featured: true },
-        { name: "Render deployment", level: 0, featured: true },
-        { name: "Plotly & Streamlit", level: 0, featured: true },
+        { name: "Pandas & NumPy", level: 0, featured: true },
+        { name: "EDA & statistical analysis", level: 0, featured: true },
         { name: "Power BI & DAX", level: 0, featured: true },
         { name: "Tableau", level: 0, featured: true },
         { name: "Looker Studio", level: 0, featured: true },
-        { name: "Advanced Excel", level: 0, featured: true }
+        { name: "Advanced Excel", level: 0, featured: true },
+        { name: "Plotly & Streamlit", level: 0, featured: true },
+        { name: "RFM segmentation", level: 0, featured: true }
+      ]
+    },
+    {
+      title: "Deployment & Automation",
+      description: "Putting models and insights into tools people use.",
+      skills: [
+        { name: "Node.js & Express", level: 0, featured: true },
+        { name: "React & TypeScript", level: 0, featured: true },
+        { name: "FastAPI", level: 0, featured: true },
+        { name: "REST APIs", level: 0, featured: true },
+        { name: "n8n workflows", level: 0, featured: true },
+        { name: "Google Apps Script", level: 0, featured: true },
+        { name: "Google Sheets API", level: 0, featured: true },
+        { name: "SQLite & MongoDB", level: 0, featured: true },
+        { name: "Git & GitHub", level: 0, featured: true },
+        { name: "Render", level: 0, featured: true }
       ]
     }
   ] as SkillCategory[],

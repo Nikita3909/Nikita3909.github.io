@@ -73,7 +73,7 @@ export const ContactSection: React.FC = () => {
               Open to <span className="text-cyan-300 font-semibold">AI Engineer</span>,{' '}
               <span className="text-emerald-300 font-semibold">Data Scientist</span>,{' '}
               <span className="text-indigo-300 font-semibold">Data Analyst</span> and{' '}
-              <span className="text-teal-300 font-semibold">Full-Stack Developer</span> roles at IT and product companies.
+              <span className="text-teal-300 font-semibold">Machine Learning Engineer</span> roles at IT and product companies.
             </p>
 
             <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto text-balance">
@@ -196,7 +196,7 @@ export const ContactSection: React.FC = () => {
                   <option value="AI Engineer">AI Engineer Role</option>
                   <option value="Data Scientist">Data Scientist Role</option>
                   <option value="Data Analyst">Data Analyst Role</option>
-                  <option value="Full-Stack Developer">Full-Stack Developer Role</option>
+                  <option value="Machine Learning Engineer">Machine Learning Engineer Role</option>
                   <option value="Consulting / Automation Project">Consulting / Automation Project</option>
                   <option value="General Enquiry">General Enquiry</option>
                 </select>

@@ -53,7 +53,7 @@ export const AboutSection: React.FC = () => {
             <span>Background & Domain Focus</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-100 tracking-tight text-balance">
-            I build software people use every day.
+            From data to decisions — with ML and AI.
           </h2>
         </div>
 

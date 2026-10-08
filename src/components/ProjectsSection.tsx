@@ -22,7 +22,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
   const [activeFilter, setActiveFilter] = useState<string>('All');
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
-  const filterTabs = ['All', 'AI & ML', 'Full-Stack Apps', 'Dashboards & BI', 'Automation'];
+  const filterTabs = ['All', 'Machine Learning', 'AI Agents', 'Analytics & BI', 'Data Apps & Automation'];
 
   const filteredProjects = activeFilter === 'All'
     ? featuredProjects
@@ -48,7 +48,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
               Featured Systems & Deployed Dashboards
             </h2>
             <p className="mt-2 text-slate-400 text-sm max-w-xl text-balance">
-              Flagship work first: an AI procurement agent, live management dashboards, two ML projects with open code, a full CRM and AI automations.
+              Machine learning, AI agents and analytics first — two ML projects with open code, an LLM procurement agent and live management dashboards.
             </p>
           </div>
 
