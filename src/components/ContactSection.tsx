@@ -19,7 +19,7 @@ export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    role: 'Data Science Analyst',
+    role: 'AI Engineer',
     message: ''
   });
 
@@ -70,9 +70,10 @@ export const ContactSection: React.FC = () => {
             </h2>
 
             <p className="text-lg sm:text-xl text-slate-300 font-medium text-balance">
-              Open to <span className="text-cyan-300 font-semibold">Data Science Analyst</span>,{' '}
-              <span className="text-emerald-300 font-semibold">Data Analyst</span>, and{' '}
-              <span className="text-indigo-300 font-semibold">BI Developer</span> roles.
+              Open to <span className="text-cyan-300 font-semibold">AI Engineer</span>,{' '}
+              <span className="text-emerald-300 font-semibold">Data Scientist</span>,{' '}
+              <span className="text-indigo-300 font-semibold">Data Analyst</span> and{' '}
+              <span className="text-teal-300 font-semibold">Full-Stack Developer</span> roles at IT and product companies.
             </p>
 
             <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto text-balance">
@@ -145,7 +146,7 @@ export const ContactSection: React.FC = () => {
               <button
                 onClick={() => {
                   setFormSubmitted(false);
-                  setFormData({ name: '', email: '', role: 'Data Science Analyst', message: '' });
+                  setFormData({ name: '', email: '', role: 'AI Engineer', message: '' });
                 }}
                 className="text-xs text-cyan-400 font-mono underline hover:text-cyan-300"
               >
@@ -192,9 +193,10 @@ export const ContactSection: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-xs text-slate-200 focus:outline-none focus:border-cyan-500/60 transition-colors"
                 >
-                  <option value="Data Science Analyst">Data Science Analyst Role</option>
+                  <option value="AI Engineer">AI Engineer Role</option>
+                  <option value="Data Scientist">Data Scientist Role</option>
                   <option value="Data Analyst">Data Analyst Role</option>
-                  <option value="BI Developer">BI Developer / Dashboard Engineer</option>
+                  <option value="Full-Stack Developer">Full-Stack Developer Role</option>
                   <option value="Consulting / Automation Project">Consulting / Automation Project</option>
                   <option value="General Enquiry">General Enquiry</option>
                 </select>

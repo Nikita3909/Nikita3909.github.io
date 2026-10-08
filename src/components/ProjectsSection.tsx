@@ -22,7 +22,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
   const [activeFilter, setActiveFilter] = useState<string>('All');
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
-  const filterTabs = ['All', 'Data Science', 'Management', 'Sales', 'Production', 'Operations'];
+  const filterTabs = ['All', 'AI & ML', 'Full-Stack Apps', 'Dashboards & BI', 'Automation'];
 
   const filteredProjects = activeFilter === 'All'
     ? featuredProjects

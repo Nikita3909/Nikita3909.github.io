@@ -73,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-slate-100 tracking-tight leading-[1.15] text-balance">
               Hi, I'm Nikita Gurav.{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-300 to-emerald-400">
-                I turn business data into live dashboards, AI insights & automation.
+                I build AI agents, full-stack apps & ML models.
               </span>
             </h1>
 
@@ -121,15 +121,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
             <div className="mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs text-slate-400 font-mono">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Less Manual Reporting</span>
+                <span>AI Agents &amp; RAG</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-cyan-400" />
-                <span>Live Management Dashboards</span>
+                <span>Full-Stack React + Node</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-indigo-400" />
-                <span>End-to-End Delivery</span>
+                <span>ML with Proper Validation</span>
               </div>
             </div>
 

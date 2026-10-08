@@ -21,22 +21,22 @@ export const AboutSection: React.FC = () => {
     { label: 'Department', value: profile.department, icon: <Sparkles className="w-4 h-4 text-indigo-400" /> },
     { label: 'Experience', value: `${profile.experienceYears} Years`, icon: <Clock className="w-4 h-4 text-emerald-400" /> },
     { label: 'Focus', value: profile.focus, icon: <Compass className="w-4 h-4 text-teal-300" /> },
-    { label: 'Industry', value: profile.industry, icon: <Building2 className="w-4 h-4 text-amber-400" /> },
+    { label: 'Current domain', value: profile.industry, icon: <Building2 className="w-4 h-4 text-amber-400" /> },
     { label: 'Location', value: profile.location, icon: <MapPin className="w-4 h-4 text-rose-400" /> }
   ];
 
   const pillarCards = [
     {
       title: 'End-to-End Ownership',
-      desc: 'From initial whiteboard sessions with plant managers to live production hosting and monitoring.'
+      desc: 'Requirements, front end, back end, data, AI and deployment — I build and support the whole thing.'
     },
     {
-      title: 'Manufacturing Domain Depth',
-      desc: 'Deep operational insight into shopfloor scheduling, Tally ledgers, bill of materials, and dispatch logistics.'
+      title: 'Shipped to Real Users',
+      desc: 'Everything here is used daily by sales, finance, production and management teams — not tutorial projects.'
     },
     {
-      title: 'Zero-Manual-Work Mindset',
-      desc: 'Eliminating recurring human spreadsheet copying with scheduled ETL triggers, webhooks, and APIs.'
+      title: 'Automation Mindset',
+      desc: 'Replacing repetitive manual work with scheduled jobs, APIs, webhooks and AI agents.'
     }
   ];
 
@@ -52,7 +52,7 @@ export const AboutSection: React.FC = () => {
             <span>Background & Domain Focus</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-100 tracking-tight text-balance">
-            Turning raw business data into daily decisions.
+            I build software people use every day.
           </h2>
         </div>
 
