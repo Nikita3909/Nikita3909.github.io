@@ -81,7 +81,7 @@ export const PORTFOLIO_DATA = {
   },
 
   stats: [
-    { value: 7, label: "Live demos", suffix: "", description: "Real systems you can click through" },
+    { value: 8, label: "Live demos", suffix: "", description: "Real systems you can click through" },
     { value: 2, label: "ML projects with code", suffix: "", description: "Forecasting & churn, open on GitHub" },
     { value: 36, label: "Internal tools shipped", suffix: "", description: "Dashboards, apps, automations & forms" },
     { value: 2, label: "Years experience", suffix: "", description: "Data analysis, BI & automation" }
@@ -378,6 +378,40 @@ export const PORTFOLIO_DATA = {
         "Dashboard and pipeline board",
         "Demo date buttons (+1 day, +7 days, +30 days) to see follow-ups become due",
         "Capture a new lead and move it through the steps"
+      ]
+    },
+    {
+      id: "tally-sync",
+      title: "Tally → Google Sheets Auto Sync",
+      department: "Finance / Automation",
+      category: "Operations",
+      problem: "Finance numbers lived only in Tally, so management dashboards needed someone to export and paste reports by hand, and nobody knew if the data was out of date.",
+      whatBuilt: "An Apps Script automation that reads 5 Tally exports (Trial Balance, Day Book, Receivables, Payables, Stock Summary) from a Drive folder and loads each into its own Google Sheets tab — checking hourly for new files, doing a full sync every night, and emailing an alert if a file is missing, older than 24 hours or fails. It strips Tally's title rows automatically and keeps a sync log. A finance dashboard reads the synced tabs.",
+      result: "The finance dashboard stays up to date without copy-pasting, and stale or missing Tally files are flagged automatically.",
+      tech: ["Google Apps Script", "Google Drive API", "Google Sheets", "JavaScript", "SheetJS"],
+      image: "/images/tally-sync.png",
+      demoUrl: "/demos/tally-sync/",
+      chartType: "reconcile",
+      highlights: [
+        "Hourly check imports only files changed since the last load; nightly run reloads everything",
+        "Header detection drops Tally's company / title / period rows before writing data",
+        "Stale (> 24 h), missing and failed files are flagged and emailed",
+        "Sync_Log tab records every run, file, row count and message"
+      ],
+      metrics: [
+        { label: "Tally reports", value: "5", trend: "TB · Day Book · AR · AP · Stock" },
+        { label: "Sync", value: "Hourly + nightly", trend: "Plus manual Sync now" },
+        { label: "Tally access", value: "Read-only", trend: "Only reads exported files" }
+      ],
+      deliverables: [
+        "Apps Script with triggers and Sync menu",
+        "Tally_Data sheet with one tab per report",
+        "Finance dashboard and sync log"
+      ],
+      liveFeatures: [
+        "Upload the next day's files and sync",
+        "Drop your own Tally Excel exports (stay in your browser)",
+        "Receivables ageing, day book, stock and payables views"
       ]
     },
     {

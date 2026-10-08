@@ -90,7 +90,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 </span>
               </div>
               <span className="text-slate-500" aria-hidden="true">·</span>
-              <span className="text-xs text-slate-400 hidden sm:inline">7 live demos · 2 ML projects</span>
+              <span className="text-xs text-slate-400 hidden sm:inline">8 live demos · 2 ML projects</span>
             </div>
 
             {/* Subtext */}
@@ -216,7 +216,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               </div>
               <div>
                 <p className="text-[10px] text-slate-400 leading-none">Automated Pipeline</p>
-                <p className="text-xs font-bold text-slate-100 font-mono mt-0.5">7 Live Demos</p>
+                <p className="text-xs font-bold text-slate-100 font-mono mt-0.5">8 Live Demos</p>
               </div>
             </div>
 

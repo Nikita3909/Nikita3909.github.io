@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally Sync — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Sora:wght@500;600&display=swap">
+<style>
+/* Layout: control strip (files + sync) on top, then the dashboard the boss sees, then the sync log. */
+:root {
+  --bg: #f3f5f6; --surface: #ffffff; --line: #dde3e6; --fg: #17242b; --muted: #5b6a72;
+  --accent: #0f6e78; --accent-soft: #e0f0f1;
+  --ok: #1d7a46; --ok-soft: #e2f3e8; --warn: #9a6200; --warn-soft: #fbefd6; --bad: #b3261e; --bad-soft: #fbe3e1;
+  --b1: #0f6e78; --b2: #4f9aa2; --b3: #d49a2a; --b4: #b3261e;
+  --display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1619; --surface: #172126; --line: #2a373d; --fg: #e3eaed; --muted: #92a3ab;
+  --accent: #5cc0c9; --accent-soft: #163a3e;
+  --ok: #6fd39a; --ok-soft: #173326; --warn: #f0bb5a; --warn-soft: #3a2d12; --bad: #f2877f; --bad-soft: #3d1c1a;
+  --b1: #5cc0c9; --b2: #3a8790; --b3: #f0bb5a; --b4: #f2877f; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1619; --surface: #172126; --line: #2a373d; --fg: #e3eaed; --muted: #92a3ab;
+  --accent: #5cc0c9; --accent-soft: #163a3e;
+  --ok: #6fd39a; --ok-soft: #173326; --warn: #f0bb5a; --warn-soft: #3a2d12; --bad: #f2877f; --bad-soft: #3d1c1a;
+  --b1: #5cc0c9; --b2: #3a8790; --b3: #f0bb5a; --b4: #f2877f; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 14px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 24px 48px; display: grid; gap: 20px; }
+h1, h2 { font-family: var(--display); font-weight: 600; margin: 0; text-wrap: balance; }
+h1 { font-size: 1.6rem; letter-spacing: -0.01em; }
+h2 { font-size: 1rem; }
+.eyebrow { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+
+header.top { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; }
+header.top p { margin: 4px 0 0; color: var(--muted); max-width: 62ch; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+.chip::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.info { background: var(--accent-soft); color: var(--accent); }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+
+/* flow steps */
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; background: var(--bg); }
+.step b { font-size: 0.85rem; }
+.step span { font-size: 0.78rem; color: var(--muted); }
+.step.active { border-color: var(--accent); background: var(--accent-soft); }
+.step .n { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); }
+
+/* file slots */
+.files { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.slot { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 4px; min-width: 0; }
+.slot .fn { font-family: var(--mono); font-size: 0.8rem; overflow-wrap: anywhere; }
+.slot .meta { font-size: 0.75rem; color: var(--muted); }
+.drop { border: 1.5px dashed var(--line); border-radius: 8px; padding: 14px; text-align: center; color: var(--muted); cursor: pointer; transition: border-color .15s, background .15s; }
+.drop:hover, .drop.over, .drop:focus-visible { border-color: var(--accent); background: var(--accent-soft); color: var(--fg); outline: none; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+button { font: inherit; font-weight: 600; border-radius: 7px; padding: 8px 14px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+button:hover { filter: brightness(1.06); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.countdown { font-size: 0.82rem; color: var(--muted); }
+
+/* dashboard */
+.dash-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 4px; min-width: 0; position: relative; }
+.kpi .v { font-family: var(--mono); font-size: 1.35rem; font-weight: 500; }
+.kpi .d { font-size: 0.76rem; color: var(--muted); }
+.kpi.flash { animation: flash 1.4s ease-out; }
+@keyframes flash { 0% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: 0 0 0 0 transparent; } }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+
+.ageing { display: flex; height: 26px; border-radius: 6px; overflow: hidden; background: var(--bg); }
+.ageing div { height: 100%; transition: width .5s; }
+.legend { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.legend div { display: grid; gap: 2px; font-size: 0.78rem; }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
+
+.tbl { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+th { text-align: left; font-weight: 600; color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.r, th.r { text-align: right; }
+tr:last-child td { border-bottom: none; }
+.scroll { max-height: 300px; overflow: auto; }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; max-width: calc(100vw - 32px); z-index: 10; }
+
+@media (max-width: 960px) {
+  .files, .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wrap { padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .kpi.flash { animation: none; } .ageing div { transition: none; } }
+</style>
+</head>
+<body>
+<div style="position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:99999;background:#0f172a;color:#e2e8f0;font:600 12px/1.4 system-ui,sans-serif;padding:8px 14px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.25);display:flex;gap:10px;align-items:center;max-width:calc(100vw - 32px)"><span style="background:#22d3ee;color:#0f172a;border-radius:999px;padding:2px 8px;font-size:11px">DEMO</span><span>Simulated Drive + Sheet · sample Tally data</span><a href="/" style="color:#67e8f9;text-decoration:none;white-space:nowrap">← Portfolio</a></div>
+
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Demo · sample data, not real Tally figures</div>
+      <h1>Tally Daily Sync</h1>
+      <p>Upload the 5 Tally exports, the script loads them into the Tally_Data sheet, and the dashboard below updates. Try it with "Upload next day's files", or drop your own Tally Excel files.</p>
+    </div>
+    <div id="syncChip"></div>
+  </header>
+
+  <section class="panel" aria-label="How the data flows">
+    <div class="flow" id="flow"></div>
+  </section>
+
+  <section class="panel" aria-label="Tally_Exports folder">
+    <div class="panel-head">
+      <div><div class="eyebrow">Google Drive</div><h2>Tally_Exports folder</h2></div>
+      <div class="actions">
+        <button id="btnNextDay" type="button">Upload next day's files</button>
+        <button id="btnSync" type="button" class="primary">Sync now</button>
+        <span class="countdown" id="countdown"></span>
+      </div>
+    </div>
+    <div class="files" id="files"></div>
+    <label class="drop" id="drop" tabindex="0" for="fileInput">
+      Drop your own Tally exports here, or click to choose files.<br>
+      <span class="muted" style="font-size:.78rem">Names must be TrialBalance, DayBook, Receivables, Payables or StockSummary (.xlsx, .xls or .csv). Files stay in your browser.</span>
+    </label>
+    <input type="file" id="fileInput" multiple accept=".xlsx,.xls,.csv" hidden>
+  </section>
+
+  <section style="display:grid;gap:14px" aria-label="Dashboard">
+    <div class="dash-head">
+      <div><div class="eyebrow">Reads the Tally_Data sheet</div><h2 style="font-size:1.2rem">Finance dashboard</h2></div>
+      <span class="muted" id="asOf"></span>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-head"><h2>Receivables ageing</h2><span class="muted num" id="recvTotal"></span></div>
+        <div class="ageing" id="ageBar"></div>
+        <div class="legend" id="ageLegend"></div>
+        <div class="tbl"><table><thead><tr><th>Top debtors</th><th class="r">Pending</th><th class="r">Oldest bill</th></tr></thead><tbody id="debtors"></tbody></table></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Day Book · latest day</h2><span class="muted" id="dbDate"></span></div>
+        <div class="tbl scroll"><table><thead><tr><th>Vch type</th><th>No.</th><th>Particulars</th><th class="r">Amount</th></tr></thead><tbody id="vouchers"></tbody></table></div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-head"><h2>Stock summary</h2><span class="muted num" id="stockTotal"></span></div>
+        <div class="tbl scroll"><table><thead><tr><th>Item</th><th class="r">Qty</th><th class="r">Value</th></tr></thead><tbody id="stock"></tbody></table></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Payables · top creditors</h2><span class="muted num" id="payTotal"></span></div>
+        <div class="tbl"><table><thead><tr><th>Creditor</th><th class="r">Pending</th><th class="r">Oldest bill</th></tr></thead><tbody id="creditors"></tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Sync log">
+    <div class="panel-head"><div><div class="eyebrow">Tally_Data sheet</div><h2>Sync_Log tab</h2></div><span class="muted" style="font-size:.8rem">Emails go out for MISSING, STALE and ERROR rows</span></div>
+    <div class="tbl scroll"><table><thead><tr><th>Run time</th><th>Run</th><th>File</th><th>Tab</th><th>Status</th><th class="r">Rows</th><th>Message</th></tr></thead><tbody id="log"></tbody></table></div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* ---------- config (mirrors Tally_Sync_code.gs) ---------- */
+const SPECS = [
+  { base: 'TrialBalance', tab: 'TB',          hints: ['particulars', 'debit', 'credit', 'closing balance'] },
+  { base: 'DayBook',      tab: 'Vouchers',    hints: ['date', 'vch type', 'vch no.', 'particulars'] },
+  { base: 'Receivables',  tab: 'Receivables', hints: ['date', 'ref. no.', "party's name", 'pending amount'] },
+  { base: 'Payables',     tab: 'Payables',    hints: ['date', 'ref. no.', "party's name", 'pending amount'] },
+  { base: 'StockSummary', tab: 'Stock',       hints: ['particulars', 'quantity', 'rate', 'value'] },
+];
+const MAX_AGE_H = 24;
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const DAY = 864e5;
+function inr(n) {
+  const a = Math.abs(n), s = n < 0 ? '-' : '';
+  if (a >= 1e7) return s + '₹' + (a / 1e7).toFixed(2) + ' Cr';
+  if (a >= 1e5) return s + '₹' + (a / 1e5).toFixed(2) + ' L';
+  if (a >= 1e3) return s + '₹' + (a / 1e3).toFixed(1) + ' K';
+  return s + '₹' + a.toFixed(0);
+}
+const inrFull = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const fmtDate = d => d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+const fmtDT = d => d.toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+function num(v) {
+  if (typeof v === 'number') return v;
+  if (v == null || v === '') return 0;
+  const s = String(v).trim(), neg = /^-|^\(/.test(s);
+  const n = parseFloat(s.replace(/[^0-9.]/g, ''));
+  return isNaN(n) ? 0 : (neg ? -n : n);
+}
+const MON = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+function toDate(v) {
+  if (v instanceof Date) return v;
+  if (typeof v === 'number' && v > 20000 && v < 80000) return new Date(Math.round((v - 25569) * DAY));
+  const s = String(v || '').trim();
+  let m = s.match(/^(\d{1,2})-([A-Za-z]{3})-(\d{2,4})$/);
+  if (m) { const y = +m[3] < 100 ? 2000 + +m[3] : +m[3]; return new Date(y, MON[m[2].toLowerCase()], +m[1]); }
+  m = s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})$/);
+  if (m) { const y = +m[3] < 100 ? 2000 + +m[3] : +m[3]; return new Date(y, +m[2] - 1, +m[1]); }
+  return null;
+}
+function col(header, ...names) {
+  const h = header.map(x => String(x).trim().toLowerCase());
+  for (const n of names) { const i = h.findIndex(x => x === n); if (i !== -1) return i; }
+  for (const n of names) { const i = h.findIndex(x => x.includes(n)); if (i !== -1) return i; }
+  return -1;
+}
+function toast(msg) {
+  const t = $('toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast._t); toast._t = setTimeout(() => { t.hidden = true; }, 3500);
+}
+
+/* same cleaning rule as the Apps Script: drop title rows above the header, drop blank rows */
+function cleanGrid(grid, hints) {
+  const blank = r => r.every(c => c === '' || c == null);
+  let start = 0;
+  for (let i = 0; i < Math.min(grid.length, 20); i++) {
+    if (grid[i].some(c => hints.includes(String(c).trim().toLowerCase()))) { start = i; break; }
+  }
+  const rows = grid.slice(start).filter(r => !blank(r));
+  return rows.length ? { header: rows[0].map(String), rows: rows.slice(1) } : { header: [], rows: [] };
+}
+
+/* ---------- sample business (seeded, so it is the same each load) ---------- */
+let seed = 20261008;
+const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+const pick = a => a[Math.floor(rnd() * a.length)];
+const CUSTOMERS = ['Sharma Food Services', 'Green Leaf Caterers', 'Hotel Sapphire', 'Brew Corner Cafes', 'Metro Bakers', 'Fresh Bowl QSR', 'Spice Route Restaurants', 'Urban Tiffin', 'Royal Banquets', 'Nature Pack Traders', 'Kerala Coffee House', 'Daily Dairy Parlours'];
+const SUPPLIERS = ['Shree Paper Mills', 'Kraft Board Suppliers', 'Birch Veneer Co.', 'Green Glue Industries', 'PackRight Films', 'Sai Transport'];
+const ITEMS = [
+  ['Wooden Spoon 140mm', 0.62], ['Wooden Fork 160mm', 0.68], ['Wooden Knife 160mm', 0.66], ['Coffee Stirrer 140mm', 0.14],
+  ['Ice Cream Spoon 95mm', 0.21], ['Paper Straw 6mm', 0.38], ['Kraft Paper Bag M', 3.9], ['Paper Cup 250ml', 1.45],
+  ['Birch Veneer Sheet (RM)', 18.5], ['Kraft Paper Roll (RM)', 64],
+];
+
+const biz = { today: new Date(2026, 9, 8), vchNo: { Sales: 1840, Purchase: 612, Receipt: 951, Payment: 488, Journal: 77 }, daybook: [], recv: [], pay: [], stock: [], tb: null };
+
+function makeDay(d) {
+  const out = [];
+  const n = 9 + Math.floor(rnd() * 6);
+  for (let i = 0; i < n; i++) {
+    const r = rnd();
+    const type = r < 0.42 ? 'Sales' : r < 0.6 ? 'Receipt' : r < 0.78 ? 'Purchase' : r < 0.93 ? 'Payment' : 'Journal';
+    const party = type === 'Sales' || type === 'Receipt' ? pick(CUSTOMERS) : type === 'Journal' ? 'Depreciation' : pick(SUPPLIERS);
+    const amt = Math.round((type === 'Sales' ? 25000 + rnd() * 240000 : type === 'Purchase' ? 30000 + rnd() * 180000 : 15000 + rnd() * 150000) / 10) * 10;
+    const no = ++biz.vchNo[type];
+    const debit = type === 'Sales' || type === 'Payment' || type === 'Journal' ? amt : '';
+    const credit = debit === '' ? amt : '';
+    out.push({ date: new Date(d), party, type, no, amt, debit, credit });
+  }
+  return out;
+}
+function applyDay(vs) {
+  vs.forEach(v => {
+    if (v.type === 'Sales') biz.recv.push({ date: v.date, ref: 'GL/' + v.no, party: v.party, amt: v.amt });
+    if (v.type === 'Purchase') biz.pay.push({ date: v.date, ref: 'P/' + v.no, party: v.party, amt: v.amt });
+    if (v.type === 'Receipt') settle(biz.recv, v.party, v.amt);
+    if (v.type === 'Payment') settle(biz.pay, v.party, v.amt);
+    if (v.type === 'Sales') biz.tb.sales += v.amt;
+    if (v.type === 'Purchase') biz.tb.purchase += v.amt;
+    if (v.type === 'Receipt') biz.tb.bank += v.amt;
+    if (v.type === 'Payment') biz.tb.bank -= v.amt;
+  });
+  biz.stock.forEach(s => { s.qty = Math.max(0, Math.round(s.qty * (0.94 + rnd() * 0.12))); });
+}
+function settle(list, party, amt) {
+  list.filter(b => b.party === party).sort((a, b) => a.date - b.date).forEach(b => {
+    const take = Math.min(b.amt, amt); b.amt -= take; amt -= take;
+  });
+  for (let i = list.length - 1; i >= 0; i--) if (list[i].amt <= 0) list.splice(i, 1);
+}
+function initBiz() {
+  biz.tb = { sales: 38200000, purchase: 21400000, direct: 4650000, indirect: 2980000, bank: 3120000, cash: 84500, capital: 15000000, duties: 1260000 };
+  for (let k = 0; k < 46; k++) {
+    const age = Math.floor(rnd() * 130);
+    biz.recv.push({ date: new Date(biz.today - age * DAY), ref: 'GL/' + (1200 + k * 13), party: pick(CUSTOMERS), amt: Math.round((20000 + rnd() * 260000) / 10) * 10 });
+  }
+  for (let k = 0; k < 22; k++) {
+    const age = Math.floor(rnd() * 80);
+    biz.pay.push({ date: new Date(biz.today - age * DAY), ref: 'P/' + (400 + k * 9), party: pick(SUPPLIERS), amt: Math.round((15000 + rnd() * 200000) / 10) * 10 });
+  }
+  biz.stock = ITEMS.map(([name, rate]) => ({ name, rate, qty: Math.round((name.includes('RM') ? 900 : 60000) + rnd() * (name.includes('RM') ? 3000 : 400000)) }));
+  for (let k = 6; k >= 0; k--) biz.daybook.push(...makeDay(new Date(biz.today - k * DAY)));
+}
+
+/* build the 5 "Excel files" in Tally's layout: title rows, then header, then data */
+function exportFiles(when) {
+  const title = (name, period) => [['GreenLeaf Eco Products (sample)'], [name], [period], []];
+  const fy = '1-Apr-26 to ' + fmtDate(biz.today);
+  const dmy = d => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' }).replace(/ /g, '-');
+  const tb = biz.tb;
+  const debtors = biz.recv.reduce((s, b) => s + b.amt, 0), creditors = biz.pay.reduce((s, b) => s + b.amt, 0);
+  const stockVal = biz.stock.reduce((s, x) => s + x.qty * x.rate, 0);
+  const tbRows = [
+    ['Capital Account', '', tb.capital], ['Duties & Taxes', '', tb.duties], ['Sundry Creditors', '', creditors],
+    ['Sundry Debtors', debtors, ''], ['Bank Accounts', tb.bank, ''], ['Cash-in-Hand', tb.cash, ''], ['Stock-in-Hand', stockVal, ''],
+    ['Sales Accounts', '', tb.sales], ['Purchase Accounts', tb.purchase, ''], ['Direct Expenses', tb.direct, ''], ['Indirect Expenses', tb.indirect, ''],
+  ];
+  const bills = list => list.slice().sort((a, b) => a.date - b.date).map(b => {
+    const due = new Date(+b.date + 30 * DAY), over = Math.max(0, Math.floor((biz.today - due) / DAY));
+    return [dmy(b.date), b.ref, b.party, b.amt, dmy(due), over || ''];
+  });
+  const grids = {
+    TrialBalance: [...title('Trial Balance', fy), ['Particulars', 'Debit', 'Credit'], ...tbRows],
+    DayBook: [...title('Day Book', dmy(new Date(biz.today - 6 * DAY)) + ' to ' + dmy(biz.today)), ['Date', 'Particulars', 'Vch Type', 'Vch No.', 'Debit Amount', 'Credit Amount'],
+      ...biz.daybook.filter(v => v.date > biz.today - 7 * DAY).map(v => [dmy(v.date), v.party, v.type, v.no, v.debit, v.credit])],
+    Receivables: [...title('Bills Receivable', 'As on ' + dmy(biz.today)), ['Date', 'Ref. No.', "Party's Name", 'Pending Amount', 'Due on', 'Overdue by days'], ...bills(biz.recv)],
+    Payables: [...title('Bills Payable', 'As on ' + dmy(biz.today)), ['Date', 'Ref. No.', "Party's Name", 'Pending Amount', 'Due on', 'Overdue by days'], ...bills(biz.pay)],
+    StockSummary: [...title('Stock Summary', 'As on ' + dmy(biz.today)), ['Particulars', 'Quantity', 'Rate', 'Value'],
+      ...biz.stock.map(s => [s.name, s.qty + ' nos', s.rate, Math.round(s.qty * s.rate)])],
+  };
+  SPECS.forEach(sp => { folder[sp.base] = { name: sp.base + '.xlsx', modified: new Date(when), grid: grids[sp.base], source: 'sample' }; });
+}
+
+/* ---------- state: Drive folder → Tally_Data sheet ---------- */
+const folder = {};   // what is in Tally_Exports
+const sheet = {};    // what the script has written (the dashboard reads only this)
+const lastStamp = {};
+const log = [];
+let pendingTimer = null, pendingAt = 0;
+
+function syncCore(mode) {
+  const runTime = new Date(+biz.today + 20 * 36e5 + (Date.now() % 36e5)); // demo clock: evening of the current day
+  const onlyChanged = mode === 'Hourly';
+  let loaded = 0, warn = 0;
+  SPECS.forEach(sp => {
+    const f = folder[sp.base];
+    if (!f) {
+      if (onlyChanged) return;
+      log.unshift([runTime, mode, sp.base, sp.tab, 'MISSING', 0, 'File not in folder. Tab left unchanged.']); warn++; return;
+    }
+    const stamp = f.name + '|' + (+f.modified);
+    if (onlyChanged && lastStamp[sp.base] === stamp) return;
+    try {
+      const g = cleanGrid(f.grid, sp.hints);
+      if (!g.rows.length) throw new Error('File has no data rows');
+      sheet[sp.tab] = { ...g, synced: runTime, file: f.name, modified: f.modified };
+      lastStamp[sp.base] = stamp; loaded++;
+      const age = (runTime - f.modified) / 36e5;
+      if (age > MAX_AGE_H) { log.unshift([runTime, mode, sp.base, sp.tab, 'STALE', g.rows.length, 'Imported, but file is ' + Math.round(age) + ' h old.']); warn++; }
+      else log.unshift([runTime, mode, sp.base, sp.tab, 'OK', g.rows.length, '']);
+    } catch (e) {
+      log.unshift([runTime, mode, sp.base, sp.tab, 'ERROR', 0, e.message]); warn++;
+    }
+  });
+  clearPending();
+  render(true);
+  toast(loaded ? loaded + ' file(s) loaded into Tally_Data' + (warn ? ', ' + warn + ' warning(s)' : '') + '. Dashboard updated.' : 'No new files to load.');
+}
+
+function schedulePending() {
+  clearPending();
+  pendingAt = Date.now() + 10000;
+  pendingTimer = setInterval(() => {
+    const s = Math.ceil((pendingAt - Date.now()) / 1000);
+    if (s <= 0) { syncCore('Hourly'); return; }
+    $('countdown').textContent = 'Hourly check runs in ' + s + ' s (sped up for the demo)';
+    renderFlow(2);
+  }, 250);
+}
+function clearPending() { clearInterval(pendingTimer); pendingTimer = null; $('countdown').textContent = ''; }
+
+/* ---------- render ---------- */
+function renderFlow(active) {
+  const steps = [
+    ['Export from Tally', 'E: Export → Excel, 5 reports'],
+    ['Upload to Drive', 'Replace files in Tally_Exports'],
+    ['Script syncs', 'Hourly, nightly, or Sync now'],
+    ['Dashboard updates', 'Reads the Tally_Data sheet'],
+  ];
+  $('flow').innerHTML = steps.map((s, i) => `<div class="step${i === active ? ' active' : ''}"><span class="n">Step ${i + 1}</span><b>${s[0]}</b><span>${s[1]}</span></div>`).join('');
+}
+
+function renderFiles() {
+  $('files').innerHTML = SPECS.map(sp => {
+    const f = folder[sp.base];
+    if (!f) return `<div class="slot"><span class="chip bad">Missing</span><div class="fn">${sp.base}.xlsx</div><div class="meta">→ ${sp.tab} tab</div></div>`;
+    const waiting = lastStamp[sp.base] !== f.name + '|' + (+f.modified);
+    const t = sheet[sp.tab], age = t ? (t.synced - f.modified) / 36e5 : 0;
+    const chip = waiting ? '<span class="chip info">New, not synced</span>' : age > MAX_AGE_H ? '<span class="chip warn">Stale</span>' : '<span class="chip ok">Synced</span>';
+    return `<div class="slot">${chip}<div class="fn">${esc(f.name)}</div><div class="meta">Modified ${fmtDT(f.modified)} · ${f.source === 'upload' ? 'your file' : 'sample'}</div><div class="meta">→ ${sp.tab} tab</div></div>`;
+  }).join('');
+}
+
+function render(flash) {
+  renderFiles();
+  const anyPending = SPECS.some(sp => folder[sp.base] && lastStamp[sp.base] !== folder[sp.base].name + '|' + (+folder[sp.base].modified));
+  renderFlow(anyPending ? (pendingTimer ? 2 : 1) : 3);
+
+  const synced = Object.values(sheet).map(t => t.synced);
+  const last = synced.length ? new Date(Math.max(...synced)) : null;
+  const issues = log.filter(r => last && +r[0] === +last && r[4] !== 'OK').length;
+  $('syncChip').innerHTML = last ? `<span class="chip ${issues ? 'warn' : 'ok'}">Last synced ${fmtDT(last)}${issues ? ' · ' + issues + ' warning(s)' : ''}</span>` : '<span class="chip bad">Not synced yet</span>';
+  $('asOf').textContent = 'Data as on ' + fmtDate(biz.today);
+
+  /* KPIs */
+  const tb = sheet.TB, rc = sheet.Receivables, py = sheet.Payables, st = sheet.Stock, db = sheet.Vouchers;
+  let sales = 0;
+  if (tb) { const p = col(tb.header, 'particulars'), c = col(tb.header, 'credit', 'closing balance'); tb.rows.forEach(r => { if (/sales/i.test(r[p])) sales += Math.abs(num(r[c])); }); }
+  const bills = t => {
+    if (!t) return [];
+    const d = col(t.header, 'date'), p = col(t.header, "party's name", 'party'), a = col(t.header, 'pending amount', 'pending', 'amount'), o = col(t.header, 'overdue by days', 'overdue');
+    return t.rows.map(r => {
+      const date = toDate(r[d]); const amt = Math.abs(num(r[a]));
+      const age = o !== -1 && r[o] !== '' ? num(r[o]) + 30 : date ? Math.floor((biz.today - date) / DAY) : 0;
+      return { party: String(r[p] || '—'), amt, age, date };
+    }).filter(b => b.amt > 0);
+  };
+  const rb = bills(rc), pb = bills(py);
+  const recvTotal = rb.reduce((s, b) => s + b.amt, 0), payTotal = pb.reduce((s, b) => s + b.amt, 0);
+  const overdue90 = rb.filter(b => b.age > 90).reduce((s, b) => s + b.amt, 0);
+  let stockRows = [], stockTotal = 0;
+  if (st) { const p = col(st.header, 'particulars'), q = col(st.header, 'quantity'), v = col(st.header, 'value'); stockRows = st.rows.map(r => ({ name: r[p], qty: r[q], val: num(r[v]) })).filter(x => x.name); stockTotal = stockRows.reduce((s, x) => s + x.val, 0); }
+  let dayRows = [], dayDate = null;
+  if (db) {
+    const d = col(db.header, 'date'), p = col(db.header, 'particulars'), t = col(db.header, 'vch type'), n = col(db.header, 'vch no'), de = col(db.header, 'debit amount', 'debit'), cr = col(db.header, 'credit amount', 'credit');
+    let cur = null;
+    const all = db.rows.map(r => { const dt = toDate(r[d]); if (dt) cur = dt; return { date: dt || cur, party: r[p], type: r[t], no: r[n], amt: num(r[de]) || num(r[cr]) }; }).filter(x => x.type);
+    dayDate = all.reduce((m, x) => x.date && (!m || x.date > m) ? x.date : m, null);
+    dayRows = all.filter(x => x.date && dayDate && +x.date === +dayDate);
+  }
+  const daySales = dayRows.filter(x => /sales/i.test(x.type)).reduce((s, x) => s + x.amt, 0);
+
+  const kpis = [
+    ['Sales this FY', tb ? inr(sales) : '—', 'Trial Balance · Sales Accounts'],
+    ['Receivables', rc ? inr(recvTotal) : '—', rc ? rb.length + ' bills · ' + inr(overdue90) + ' over 90 days' : 'Receivables.xlsx'],
+    ['Payables', py ? inr(payTotal) : '—', py ? pb.length + ' bills pending' : 'Payables.xlsx'],
+    ['Stock value', st ? inr(stockTotal) : '—', st ? stockRows.length + ' items' : 'StockSummary.xlsx'],
+    ['Latest day sales', db ? inr(daySales) : '—', db && dayDate ? dayRows.length + ' vouchers on ' + fmtDate(dayDate) : 'DayBook.xlsx'],
+  ];
+  $('kpis').innerHTML = kpis.map(k => `<div class="kpi${flash ? ' flash' : ''}"><div class="eyebrow">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${esc(k[2])}</div></div>`).join('');
+
+  /* ageing */
+  const buckets = [['0–30 days', 0, 30, 'var(--b1)'], ['31–60 days', 31, 60, 'var(--b2)'], ['61–90 days', 61, 90, 'var(--b3)'], ['90+ days', 91, 1e9, 'var(--b4)']]
+    .map(([l, lo, hi, c]) => ({ l, c, v: rb.filter(b => b.age >= lo && b.age <= hi).reduce((s, b) => s + b.amt, 0) }));
+  $('recvTotal').textContent = inrFull(recvTotal);
+  $('ageBar').innerHTML = buckets.map(b => `<div style="width:${recvTotal ? b.v / recvTotal * 100 : 0}%;background:${b.c}" title="${b.l}: ${inrFull(b.v)}"></div>`).join('');
+  $('ageLegend').innerHTML = buckets.map(b => `<div><span><i style="background:${b.c}"></i>${b.l}</span><b class="num">${inr(b.v)}</b></div>`).join('');
+
+  const top = list => {
+    const m = {};
+    list.forEach(b => { m[b.party] = m[b.party] || { amt: 0, age: 0 }; m[b.party].amt += b.amt; m[b.party].age = Math.max(m[b.party].age, b.age); });
+    return Object.entries(m).sort((a, b) => b[1].amt - a[1].amt).slice(0, 6);
+  };
+  const ageCell = a => `<span class="chip ${a > 90 ? 'bad' : a > 60 ? 'warn' : 'ok'}">${a} d</span>`;
+  $('debtors').innerHTML = top(rb).map(([p, v]) => `<tr><td>${esc(p)}</td><td class="r num">${inrFull(v.amt)}</td><td class="r">${ageCell(v.age)}</td></tr>`).join('') || '<tr><td colspan="3" class="muted">No receivables loaded</td></tr>';
+  $('payTotal').textContent = inrFull(payTotal);
+  $('creditors').innerHTML = top(pb).map(([p, v]) => `<tr><td>${esc(p)}</td><td class="r num">${inrFull(v.amt)}</td><td class="r">${ageCell(v.age)}</td></tr>`).join('') || '<tr><td colspan="3" class="muted">No payables loaded</td></tr>';
+
+  $('dbDate').textContent = dayDate ? fmtDate(dayDate) : '';
+  $('vouchers').innerHTML = dayRows.map(v => `<tr><td>${esc(v.type)}</td><td class="num">${esc(v.no)}</td><td>${esc(v.party)}</td><td class="r num">${inrFull(v.amt)}</td></tr>`).join('') || '<tr><td colspan="4" class="muted">No Day Book loaded</td></tr>';
+
+  $('stockTotal').textContent = inrFull(stockTotal);
+  $('stock').innerHTML = stockRows.slice().sort((a, b) => b.val - a.val).map(s => `<tr><td>${esc(s.name)}</td><td class="r num">${esc(s.qty)}</td><td class="r num">${inrFull(s.val)}</td></tr>`).join('') || '<tr><td colspan="3" class="muted">No stock loaded</td></tr>';
+
+  const cls = { OK: 'ok', STALE: 'warn', MISSING: 'bad', ERROR: 'bad' };
+  $('log').innerHTML = log.slice(0, 60).map(r => `<tr><td class="num">${fmtDT(r[0])}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="chip ${cls[r[4]]}">${r[4]}</span></td><td class="r num">${r[5]}</td><td class="muted">${esc(r[6])}</td></tr>`).join('');
+}
+
+/* ---------- actions ---------- */
+$('btnSync').onclick = () => syncCore('Sync now');
+$('btnNextDay').onclick = () => {
+  biz.today = new Date(+biz.today + DAY);
+  const vs = makeDay(biz.today); biz.daybook.push(...vs); applyDay(vs);
+  exportFiles(+biz.today + 19.5 * 36e5);
+  render(false); schedulePending();
+  toast('5 files for ' + fmtDate(biz.today) + ' uploaded to Tally_Exports. Not on the dashboard until the script syncs.');
+};
+
+async function handleFiles(list) {
+  const bad = [];
+  for (const file of list) {
+    const base = file.name.replace(/\.(xlsx|xls|csv)$/i, '').replace(/\s+/g, '').toLowerCase();
+    const sp = SPECS.find(s => s.base.toLowerCase() === base);
+    if (!sp) { bad.push(file.name); continue; }
+    try {
+      const wb = XLSX.read(await file.arrayBuffer(), { cellDates: true });
+      const grid = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: true, defval: '' });
+      folder[sp.base] = { name: file.name, modified: new Date(+biz.today + 19.5 * 36e5), grid, source: 'upload' };
+    } catch (e) { bad.push(file.name + ' (could not read)'); }
+  }
+  render(false);
+  if (bad.length) toast('Skipped: ' + bad.join(', ') + '. Use the 5 standard file names.');
+  else { schedulePending(); toast(list.length + ' file(s) uploaded. Waiting for the script to sync.'); }
+}
+const drop = $('drop');
+['dragenter', 'dragover'].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', ev => handleFiles([...ev.dataTransfer.files]));
+drop.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); $('fileInput').click(); } });
+$('fileInput').addEventListener('change', ev => { handleFiles([...ev.target.files]); ev.target.value = ''; });
+
+/* ---------- boot: yesterday's files synced last night; Payables was not re-exported (stale) ---------- */
+initBiz();
+exportFiles(+biz.today - DAY + 19 * 36e5);
+folder.Payables.modified = new Date(+biz.today - 2 * DAY + 18 * 36e5);
+(function nightly() {
+  const runTime = new Date(+biz.today - DAY + 23 * 36e5);
+  SPECS.forEach(sp => {
+    const f = folder[sp.base], g = cleanGrid(f.grid, sp.hints);
+    sheet[sp.tab] = { ...g, synced: runTime, file: f.name, modified: f.modified };
+    lastStamp[sp.base] = f.name + '|' + (+f.modified);
+    const age = (runTime - f.modified) / 36e5;
+    log.unshift([runTime, 'Nightly', sp.base, sp.tab, age > MAX_AGE_H ? 'STALE' : 'OK', g.rows.length, age > MAX_AGE_H ? 'Imported, but file is ' + Math.round(age) + ' h old.' : '']);
+  });
+})();
+render(false);
+</script>
+
+</body>
+</html>
