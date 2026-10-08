@@ -347,6 +347,40 @@ export const PORTFOLIO_DATA = {
       ]
     },
     {
+      id: "export-lead-tracker",
+      title: "Export Lead Tracker",
+      department: "Sales / Export",
+      category: "Sales",
+      problem: "Export enquiries and outbound outreach to overseas buyers were followed up inconsistently, and there was no view of which step each lead was on or whether follow-ups were late.",
+      whatBuilt: "A lead tracking system for export sales with two flows — inbound ('Come to Us': enquiry → email within 1 day → follow-ups every 7 days) and outbound ('We Reached Out': introduction → 4 follow-ups) — leading to Quotation → PI → PO. It has a dashboard, pipeline board, lead table, a 9 AM action queue, 1-month review of closed leads and planned-vs-actual tracking for every step. The same React app runs live on Google Apps Script with a 14-tab Google Sheet backend.",
+      result: "Every export lead has a clear next step and due date, late follow-ups are visible per person, and won value is tracked from quotation to PO.",
+      tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Google Apps Script", "Google Sheets"],
+      image: "/images/export-leads.png",
+      demoUrl: "/demos/export-leads/",
+      chartType: "crm",
+      highlights: [
+        "Two lead flows with automatic planned dates (1-day email, 7-day follow-up cadence)",
+        "Planned vs actual for every step, with on-time %, average delay and overdue per person",
+        "Daily 9 AM job that moves steps to Due Today / Overdue and rebuilds the step tabs",
+        "1-month review: reopen a closed lead or close it permanently, with a required remark"
+      ],
+      metrics: [
+        { label: "Lead flows", value: "2", trend: "Inbound · outbound" },
+        { label: "Sheet tabs", value: "14", trend: "Written by the app" },
+        { label: "Pipeline", value: "Quote → PI → PO", trend: "Won value tracked" }
+      ],
+      deliverables: [
+        "React app (one build for live and demo)",
+        "Apps Script backend with daily trigger",
+        "Google Sheet with step, review, lost and activity tabs"
+      ],
+      liveFeatures: [
+        "Dashboard and pipeline board",
+        "Demo date buttons (+1 day, +7 days, +30 days) to see follow-ups become due",
+        "Capture a new lead and move it through the steps"
+      ]
+    },
+    {
       id: "pack-design-studio",
       title: "Packaging Design Studio (3D)",
       department: "Design / Production",
