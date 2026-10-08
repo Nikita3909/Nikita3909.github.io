@@ -92,7 +92,7 @@ export const AboutSection: React.FC = () => {
                 href="#projects" 
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 font-mono whitespace-nowrap"
               >
-                <span>View All 36 Systems</span>
+                <span>View All 35 Systems</span>
                 <span aria-hidden="true">→</span>
               </a>
             </div>

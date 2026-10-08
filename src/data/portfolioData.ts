@@ -58,7 +58,7 @@ export const PORTFOLIO_DATA = {
     role: "AI Data Science Analyst",
     department: "AI & Data Science",
     experienceYears: 1.5,
-    systemsCount: 36,
+    systemsCount: 35,
     departmentsCount: 6,
     toolsCount: "15+",
     focus: "Data science, ML, AI agents",
@@ -84,7 +84,7 @@ export const PORTFOLIO_DATA = {
   stats: [
     { value: 8, label: "Live demos", suffix: "", description: "Real systems you can click through" },
     { value: 2, label: "ML projects with code", suffix: "", description: "Forecasting & churn, open on GitHub" },
-    { value: 36, label: "Internal tools shipped", suffix: "", description: "Dashboards, apps, automations & forms" },
+    { value: 35, label: "Internal tools shipped", suffix: "", description: "Dashboards, apps, automations & forms" },
     { value: 1, label: "Years professional experience", suffix: ".5+", description: "Plus 2 data analyst internships" }
   ],
 
@@ -1019,10 +1019,10 @@ export const PORTFOLIO_DATA = {
       role: "AI Data Science Analyst",
       department: "AI & Data Science",
       organization: "BioPapro Pvt Ltd",
-      summary: "Building data systems, dashboards and automation for the whole business — 36 systems across Sales, Production, Purchase, Order-to-Delivery, Stock and Admin.",
+      summary: "Building data systems, dashboards and automation for the whole business — 35 systems across Sales, Production, Purchase, Order-to-Delivery, Stock and Admin.",
       achievements: [
         "Automated recurring MIS reports and reporting workflows with Google Sheets, Apps Script and AI tools, reducing manual reporting effort by 80%.",
-        "Built and deployed 36 business systems across 6 departments using Google Sheets, Apps Script, Node.js, React and Python.",
+        "Built and deployed 35 business systems across 6 departments using Google Sheets, Apps Script, Node.js, React and Python.",
         "Built the CEO Command Center: live department scoring, attention ranking and alerts with drill-downs for stock, receivables, orders, pipeline and margin.",
         "Built sales forecasting (Holt-Winters), RFM customer segmentation and an AI sales assistant on a PostgreSQL sales database.",
         "Built a Procurement AI Agent (LangGraph tool-calling agent with local RAG search and a procurement knowledge graph) covering planning, import POs, payments and landed cost.",
