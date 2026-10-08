@@ -81,7 +81,7 @@ export const PORTFOLIO_DATA = {
   },
 
   stats: [
-    { value: 6, label: "Live demos", suffix: "", description: "Real systems you can click through" },
+    { value: 7, label: "Live demos", suffix: "", description: "Real systems you can click through" },
     { value: 2, label: "ML projects with code", suffix: "", description: "Forecasting & churn, open on GitHub" },
     { value: 36, label: "Internal tools shipped", suffix: "", description: "Dashboards, apps, automations & forms" },
     { value: 2, label: "Years experience", suffix: "", description: "Data analysis, BI & automation" }
