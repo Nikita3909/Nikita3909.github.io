@@ -83,7 +83,7 @@ export const PORTFOLIO_DATA = {
 
   stats: [
     { value: 8, label: "Live demos", suffix: "", description: "Real systems you can click through" },
-    { value: 2, label: "ML projects with code", suffix: "", description: "Forecasting & churn, open on GitHub" },
+    { value: 4, label: "Data & AI projects with code", suffix: "", description: "ML, RAG & SQL, open on GitHub" },
     { value: 35, label: "Internal tools shipped", suffix: "", description: "Dashboards, apps, automations & forms" },
     { value: 1, label: "Years professional experience", suffix: ".5+", description: "Plus 2 data analyst internships" }
   ],
@@ -213,6 +213,74 @@ export const PORTFOLIO_DATA = {
         "Cumulative gains chart",
         "Churn rate by RFM segment",
         "Feature importance"
+      ]
+    },
+    {
+      id: "rag-sop-assistant",
+      title: "RAG SOP Assistant",
+      department: "Operations",
+      category: "AI Agents",
+      problem: "Staff kept asking the same process questions (credit hold rules, discount approvals, follow-up timing) because the answers were buried in long SOP documents.",
+      whatBuilt: "A retrieval-augmented generation assistant over 9 company SOPs. It splits documents by section, ranks them with BM25 (written from scratch) and TF-IDF, fuses the rankings with Reciprocal Rank Fusion, adds domain query expansion, and has Claude answer with citations. It falls back to an offline extractive answer when no API key is set.",
+      result: "On 30 labelled test questions the right section reaches the LLM 100% of the time (Hit@3), with MRR 0.917. Error analysis showed most misses were vocabulary gaps ('reminder' vs 'follow-up'), fixed with a 12-word synonym map.",
+      tech: ["Python", "RAG", "BM25", "scikit-learn", "Claude API", "Streamlit"],
+      image: "/images/rag-sop.png",
+      codeUrl: "https://github.com/Nikita3909/rag-sop-assistant",
+      chartType: "tasks",
+      highlights: [
+        "Hybrid retrieval: BM25 + TF-IDF fused with Reciprocal Rank Fusion",
+        "Retrieval evaluation with Hit@1, Hit@3 and MRR, plus a full miss list",
+        "Grounded answers that cite the exact SOP section",
+        "Honest caveat: the synonym map was tuned on the same questions"
+      ],
+      metrics: [
+        { label: "Hit@3", value: "100%", trend: "30 test questions" },
+        { label: "MRR", value: "0.917", trend: "BM25 alone: 0.892" },
+        { label: "SOPs indexed", value: "9", trend: "44 sections" }
+      ],
+      deliverables: [
+        "Python project with evaluation script",
+        "Streamlit chat UI",
+        "Sample SOPs (fictional company)"
+      ],
+      liveFeatures: [
+        "Ask any process question",
+        "See the retrieved SOP sections",
+        "Works offline without an API key"
+      ]
+    },
+    {
+      id: "sql-sales-analytics",
+      title: "SQL Sales & Receivables Analytics",
+      department: "Sales & Finance",
+      category: "Analytics & BI",
+      problem: "Management needed answers on customer concentration, overdue payments, late deliveries and price leakage, but the data sat in separate order, invoice and payment tables.",
+      whatBuilt: "A 7-table SQLite sales database (1,827 orders, 3,229 invoices, 3,421 payments) and 15 business SQL queries using CTEs, window functions (RANK, LAG, NTILE), cohort retention and RFM segmentation, with a Python runner that exports results and charts.",
+      result: "Found that the top 39 of 117 customers give 80% of revenue, 23% of ₹2.19 Cr outstanding is 90+ days overdue, only 41–44% of orders ship on time, and below-benchmark pricing leaked ₹10.3 L.",
+      tech: ["SQL", "SQLite", "Python", "Pandas", "Matplotlib"],
+      image: "/images/sql-analytics.png",
+      codeUrl: "https://github.com/Nikita3909/sql-sales-analytics",
+      chartType: "sales",
+      highlights: [
+        "CTEs and window functions: RANK, LAG, NTILE, running totals",
+        "Receivables ageing buckets and on-time delivery rate",
+        "Quarterly cohort retention and RFM segments in pure SQL",
+        "Each query answers one business question, with findings in the README"
+      ],
+      metrics: [
+        { label: "Business queries", value: "15", trend: "CTEs + window functions" },
+        { label: "Revenue concentration", value: "39 → 80%", trend: "Of 117 customers" },
+        { label: "90+ days overdue", value: "23%", trend: "Of ₹2.19 Cr outstanding" }
+      ],
+      deliverables: [
+        "SQLite database build script",
+        "15 documented SQL queries",
+        "Pareto, ageing, revenue and cohort charts"
+      ],
+      liveFeatures: [
+        "Pareto of customer revenue",
+        "Receivables ageing",
+        "Cohort retention heatmap"
       ]
     },
     {

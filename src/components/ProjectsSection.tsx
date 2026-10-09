@@ -48,7 +48,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject 
               Featured Projects
             </h2>
             <p className="mt-2 text-slate-400 text-sm max-w-xl text-balance">
-              Machine learning, AI agents and analytics first — two ML projects with open code, an LLM procurement agent and live management dashboards.
+              Machine learning, AI agents and analytics first — two ML models, a RAG assistant and SQL analytics with open code, an LLM procurement agent and live management dashboards.
             </p>
           </div>
 
